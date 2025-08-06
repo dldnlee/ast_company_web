@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 import TopNavigationBar from './components/TopNavigationBar';
-import { SectionOne, SectionThree, SectionTwo } from './sections';
+import { SectionFour, SectionOne, SectionThree, SectionTwo } from './sections';
 
 export default function HomePage() {
   useEffect(() => {
@@ -40,8 +40,11 @@ export default function HomePage() {
       {/* Partner Channel */}
       <SectionThree />
 
+      {/* Partner Influencers */}
+      <SectionFour />
+
       {/* Partner Influencer */}
-      <section id="partner-influencer" className="py-20 bg-black text-center">
+      {/* <section id="partner-influencer" className="py-20 bg-black text-center">
         <h2 className="text-3xl font-bold mb-4">PARTNER INFLUENCER</h2>
         <p className="text-gray-400 mb-8">협력 인플루언서</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto px-4">
@@ -53,10 +56,10 @@ export default function HomePage() {
           ))}
           <div className="bg-white/10 aspect-square rounded-xl flex items-center justify-center text-4xl text-gray-400">?</div>
         </div>
-      </section>
+      </section> */}
 
       {/* Clients */}
-      <section id="clients" className="py-20 bg-black text-center">
+      {/* <section id="clients" className="py-20 bg-black text-center">
         <h2 className="text-3xl font-bold mb-4 text-purple-400">CLIENTS</h2>
         <p className="text-gray-400 mb-8">함께한 브랜드들</p>
         <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-6 max-w-6xl mx-auto px-4">
@@ -64,7 +67,7 @@ export default function HomePage() {
             <img key={i} src={`/ClientsLogo/${i + 1}.png`} alt={`Client ${i + 1}`} className="h-12 object-contain mx-auto" />
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Portfolio */}
       <section id="portfolio" className="py-20 bg-gradient-to-b from-neutral-900 to-black text-center">
