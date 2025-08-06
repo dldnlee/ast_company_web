@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { influencerNames } from '@/data/influencerNames';
 import 'swiper/css';
 
 
@@ -6,17 +7,22 @@ import 'swiper/css';
 
 export function SectionFour() {
   return (
-    <section>
+    <section className='flex flex-col items-center justify-center gap-10'>
+      <h1 className='text-2xl'>Our Partner Influencers</h1>
       <Swiper
       spaceBetween={50}
-      slidesPerView={3}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
+      slidesPerView={5}
+      centeredSlides={true}
+      className='w-full'
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
+        {influencerNames.map((name : string, idx : number) => (
+          <SwiperSlide key={idx}>
+            <div className='w-[400px]'>
+              <img src={`/partner_influencers/${name}`} alt={name} className='rounded-2xl' />
+              <p>name</p>
+            </div>
+          </SwiperSlide>  
+        ))}
       </Swiper>
     </section>
   )

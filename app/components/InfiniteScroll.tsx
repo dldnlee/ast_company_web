@@ -1,20 +1,25 @@
+import { brandNames } from '@/data/brandNames';
 import React from 'react';
 
 const InfiniteScrollPartners = () => {
-  // Sample brand logos - you can replace these with your actual brand data
-  const brands = [
-    { id: 1, name: 'Brand Logo 1', color: 'bg-gray-400' },
-    { id: 2, name: 'Brand Logo 2', color: 'bg-gray-500' },
-    { id: 3, name: 'Brand Logo 3', color: 'bg-gray-400' },
-    { id: 4, name: 'Brand Logo 4', color: 'bg-gray-500' },
-    { id: 5, name: 'Brand Logo 5', color: 'bg-gray-400' },
-    { id: 6, name: 'Brand Logo 6', color: 'bg-gray-500' },
-    { id: 7, name: 'Brand Logo 7', color: 'bg-gray-400' },
-    { id: 8, name: 'Brand Logo 8', color: 'bg-gray-500' },
-  ];
+  // // Sample brand logos - you can replace these with your actual brand data
+  // const brands = [
+  //   { id: 1, name: 'Brand Logo 1', color: 'bg-gray-400' },
+  //   { id: 2, name: 'Brand Logo 2', color: 'bg-gray-500' },
+  //   { id: 3, name: 'Brand Logo 3', color: 'bg-gray-400' },
+  //   { id: 4, name: 'Brand Logo 4', color: 'bg-gray-500' },
+  //   { id: 5, name: 'Brand Logo 5', color: 'bg-gray-400' },
+  //   { id: 6, name: 'Brand Logo 6', color: 'bg-gray-500' },
+  //   { id: 7, name: 'Brand Logo 7', color: 'bg-gray-400' },
+  //   { id: 8, name: 'Brand Logo 8', color: 'bg-gray-500' },
+  // ];
 
   // Duplicate brands for seamless scrolling
-  const duplicatedBrands = [...brands, ...brands];
+  const median = Math.floor(brandNames.length / 2);
+  const lowerHalf = brandNames.slice(0, median);
+  const upperHalf = brandNames.slice(median, brandNames.length);
+  const topBrands = [...upperHalf, ...upperHalf];
+  const bottomBrands = [...lowerHalf, ...lowerHalf];
 
   return (
     <div className="w-full bg-black py-16 overflow-hidden">
@@ -25,12 +30,13 @@ const InfiniteScrollPartners = () => {
       {/* Top row - scrolling right */}
       <div className="relative mb-8">
         <div className="flex animate-scroll-right">
-          {duplicatedBrands.map((brand, index) => (
+          {topBrands.map((brand, index) => (
             <div
-              key={`top-${brand.id}-${index}`}
-              className={`flex-shrink-0 w-40 h-20 ${brand.color} rounded-lg flex items-center justify-center text-white font-medium mx-4 shadow-lg`}
+              key={`top-${brand}-${index}`}
+              className={`flex-shrink-0 w-40 h-20 rounded-lg flex items-center justify-center text-white font-medium mx-4 shadow-lg bg-white`}
             >
-              {brand.name}
+              <img src={`/brand_logos/${brand}.png`} alt={brand} />
+              {/* {brand.name} */}
             </div>
           ))}
         </div>
@@ -43,12 +49,13 @@ const InfiniteScrollPartners = () => {
       {/* Bottom row - scrolling left */}
       <div className="relative">
         <div className="flex animate-scroll-left">
-          {duplicatedBrands.map((brand, index) => (
+          {bottomBrands.map((brand, index) => (
             <div
-              key={`bottom-${brand.id}-${index}`}
-              className={`flex-shrink-0 w-40 h-20 ${brand.color} rounded-lg flex items-center justify-center text-white font-medium mx-4 shadow-lg`}
+              key={`bottom-${brand}-${index}`}
+              className={`flex-shrink-0 w-40 h-20 rounded-lg flex items-center justify-center text-white font-medium mx-4 shadow-lg bg-white`}
             >
-              {brand.name}
+              <img src={`/brand_logos/${brand}.png`} alt={brand} />
+              {/* {brand.name} */}
             </div>
           ))}
         </div>
