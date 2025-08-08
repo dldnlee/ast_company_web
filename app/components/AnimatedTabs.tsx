@@ -95,12 +95,12 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
 
   return (
     <div className={`w-full  mx-auto p-6 ${className}`}>
-      <div className={`flex items-center justify-center text-xs overflow-x-auto gap-3 mb-6 ${tabClassName}`}>
+      <div className={`flex items-center justify-center sm:text-md text-sm overflow-x-auto gap-3 mb-6 ${tabClassName}`}>
         {tabs.map((tab: TabData, index: number) => (
           <button
             key={index}
-            className={`relative px-4 py-2 font-medium transition-colors border md:border-2 rounded-full ${
-              activeTab === index ? 'text-purple-600' : 'text-gray-500 hover:text-gray-700'
+            className={`relative px-4 py-2 font-medium transition-colors ${
+              activeTab === index ? 'text-purple-600 border-b-2 border-b-purple' : 'text-gray-500 hover:text-gray-700'
             }`}
             onClick={() => handleTabClick(index)}
           >

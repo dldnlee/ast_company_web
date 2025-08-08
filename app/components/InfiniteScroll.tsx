@@ -19,7 +19,7 @@ const InfiniteScrollPartners = () => {
   // const bottomBrands = [...lowerHalf, ...lowerHalf];
 
   return (
-    <div className="w-full bg-black py-16 overflow-hidden">
+    <div className="w-full py-16 overflow-hidden">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-white mb-4">OUR PARTNERS</h2>
       </div>

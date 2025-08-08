@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ScrollProgress } from "./components/ScrollProgress";
+import BackgroundBubbles from "./components/BackgroundBubble";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,11 +38,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={` ${inter.variable} ${poppins.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${poppins.variable} antialiased relative min-h-screen`}>
         <ScrollProgress />
-        {children}
+        <BackgroundBubbles />
+        <main className="relative z-10">
+          {children}
+        </main>
       </body>
     </html>
   );

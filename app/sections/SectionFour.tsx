@@ -9,8 +9,8 @@ import { FaArrowRight } from "react-icons/fa";
 
 export function SectionFour() {
   return (
-    <section className='flex flex-col items-center justify-center gap-10 py-20'>
-      <h2 className="text-4xl font-bold text-white mb-4">OUR PARTNER INFLUENCERS</h2>
+    <section className='flex flex-col items-center justify-center gap-10 py-16'>
+      <h2 className="text-4xl font-bold text-white mb-4 text-center">OUR PARTNER INFLUENCERS</h2>
       <Swiper
       // spaceBetween={50}
       // slidesPerView={5}

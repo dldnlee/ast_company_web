@@ -28,7 +28,14 @@ const sectionItems: CardData[] = [
 
 export function SectionTwo() {
     return (
-        <section className="">
+        <section className="py-16">
+            <h2 className="text-center mb-3">
+                <p className="text-3xl font-bold mb-3">
+                    ABOUT
+                    <span className="text-purple-600"> US</span>
+                </p> 
+                <p>소비자를 사로잡는 콘텐츠 광고주에게 돌아오는 확실한 가치</p>
+            </h2>
             <AnimatedCardGrid cards={sectionItems} />
         </section>
     )

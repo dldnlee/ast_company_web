@@ -7,7 +7,7 @@ import { SectionFive, SectionFour, SectionOne, SectionThree, SectionTwo } from '
 export default function HomePage() {
 
   return (
-    <main className="bg-black text-white overflow-x-hidden">
+    <main className="text-white overflow-x-hidden">
       {/* Background Balls */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none background-balls" />
 
