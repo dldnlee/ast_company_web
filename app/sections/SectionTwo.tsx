@@ -25,7 +25,7 @@ const sectionItems: SectionItem[] = [
 
 export function SectionTwo() {
     return (
-        <section className="bg-black py-20">
+        <section className=" py-20">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-gray-400">
                 {sectionItems.map((item, index) => (
