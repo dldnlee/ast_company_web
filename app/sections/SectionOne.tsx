@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import { GradualSpacing } from "../components/GradualSpacing"
+import GlitchText from "../components/GlitchText"
 
 export function SectionOne() {
     return (
@@ -15,7 +16,8 @@ export function SectionOne() {
       />
 
       {/* Overlay */}
-      <div className="relative z-10 flex flex-col justify-center h-full px-8 max-w-7xl mx-auto overflow-hidden">
+      <div className="relative z-10 flex flex-col gap-2 justify-end h-full px-20 pb-20 max-w-7xl mx-auto overflow-hidden">
+        <GradualSpacing text="AST Company"/>
         <motion.p 
         initial={{
             opacity: 0
@@ -26,8 +28,14 @@ export function SectionOne() {
         transition={{
             duration: 1.5
         }}
-        className="text-white text-xl mb-4">브랜드를 콘텐츠로 세상과 연결하다</motion.p>
-        <GradualSpacing text="AST Company"/>
+        className="text-white text-xl">브랜드를 콘텐츠로 세상과 연결하다</motion.p>
+        <p>We Create | We Connect | We Convert</p>
+        <p>At the Same Time</p>
+        <div className="flex gap-4">
+          <button className="border py-3 px-4">VIEW PORTFOLIO</button>
+          <button className="border py-3 px-4">CONTACT US</button>
+
+        </div>
       </div>
 
       {/* Optional: Overlay Background Tint */}
