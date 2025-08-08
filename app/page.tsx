@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 import TopNavigationBar from './components/TopNavigationBar';
-import { SectionFive, SectionFour, SectionOne, SectionThree, SectionTwo } from './sections';
+import { PartnerChannelSection, SectionFive, SectionFour, SectionOne, SectionThree, SectionTwo } from './sections';
 
 export default function HomePage() {
 
@@ -25,9 +25,13 @@ export default function HomePage() {
 
       {/* Partner Influencers */}
       <SectionFour />
+      
+      {/* PartnerInfluencers */}
+      <PartnerChannelSection />
 
       {/* Portfolios */}
       <SectionFive />
+
 
       {/* Contact */}
       <section id="contact" className="py-20 bg-black text-center">
