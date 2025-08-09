@@ -18,9 +18,8 @@ export function FooterSection() {
         <ul className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           <li><a href="/" className="hover:text-purple-400">Home</a></li>
           <li><a href="/about" className="hover:text-purple-400">About</a></li>
-          <li><a href="/services" className="hover:text-purple-400">Services</a></li>
-          <li><a href="/works" className="hover:text-purple-400">Works</a></li>
-          <li><a href="/reviews" className="hover:text-purple-400">Reviews</a></li>
+          <li><a href="/services" className="hover:text-purple-400">Clients</a></li>
+          <li><a href="/works" className="hover:text-purple-400">Portfolio</a></li>
           <li><a href="/contact" className="hover:text-purple-400">Contact</a></li>
         </ul>
       </nav>

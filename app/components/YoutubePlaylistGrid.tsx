@@ -222,7 +222,7 @@ const PlaylistVideoCard: React.FC<{
     <motion.div
       className="group relative bg-[#A0A0A0] text-black rounded-lg overflow-hidden cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ 
         scale: 1.02,
