@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
 import { Variants } from "motion";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 
-interface AnimatedModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  inquiryChannel?: string; // 문의 채널 prop
+interface FormData {
+  channel: string;
+  inquiryType: string;
+  title: string;
+  contact: string;
+  content: string;
 }
 
-const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryChannel = "" }) => {
-  const [formData, setFormData] = useState({
-    channel: inquiryChannel,
+interface ContactModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  influencerId?: string;
+}
+
+// Contact Modal Component
+const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencerId = '' }) => {
+  const [formData, setFormData] = useState<FormData>({
+    channel: influencerId,
     inquiryType: '',
     title: '',
     contact: '',
@@ -54,7 +63,7 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -62,10 +71,9 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
     }));
   };
 
-  const handleSubmit = () => {
-    // Handle form submission here
+  const handleSubmit = (): void => {
     console.log('Form submitted:', formData);
-    // You can add your submission logic here
+    // Add your submission logic here
     onClose();
   };
 
@@ -73,7 +81,7 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center z-50 p-4 text-black"
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
@@ -94,6 +102,7 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
               <button
                 onClick={onClose}
                 className="text-gray-500 hover:text-gray-700 text-xl"
+                type="button"
               >
                 ✕
               </button>
@@ -112,7 +121,7 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
                   value={formData.channel}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="@jun_tarzan"
+                  placeholder=""
                 />
               </div>
 
@@ -196,56 +205,4 @@ const AnimatedModal: React.FC<AnimatedModalProps> = ({ isOpen, onClose, inquiryC
   );
 };
 
-// Example usage component to demonstrate the modal
-const ContactModalExample: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedChannel, setSelectedChannel] = useState("");
-
-  const channels = [
-    "@jun_tarzan",
-    "@influencer_example",
-    "@another_channel"
-  ];
-
-  const openModalWithChannel = (channel: string) => {
-    setSelectedChannel(channel);
-    setIsModalOpen(true);
-  };
-
-  return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-8 text-center">Contact Form Modal Demo</h1>
-      
-      <div className="max-w-md mx-auto space-y-4">
-        <p className="text-gray-600 text-center mb-6">
-          Click on any channel to open the contact form:
-        </p>
-        
-        {channels.map((channel, index) => (
-          <button
-            key={index}
-            onClick={() => openModalWithChannel(channel)}
-            className="w-full p-4 bg-white border border-gray-200 rounded-lg hover:bg-purple-50 hover:border-purple-300 transition-colors text-left"
-          >
-            <span className="text-purple-600 font-medium">{channel}</span>
-          </button>
-        ))}
-        
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="w-full mt-6 bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors"
-        >
-          Open Contact Form (No Channel)
-        </button>
-      </div>
-
-      <AnimatedModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}
-        inquiryChannel={selectedChannel}
-      />
-    </div>
-  );
-};
-
-export default ContactModalExample;
+export default ContactModal;

@@ -1,86 +1,39 @@
-import { Transition } from "motion";
-import { useInView, motion } from "motion/react";
-import { useRef } from "react";
 
 interface CardData {
   title: string;
   description: string;
 }
 
-interface AnimatedCardProps extends CardData {
-  index: number;
-}
-
-// Animated Card Grid with hover effects
-const AnimatedCard: React.FC<AnimatedCardProps> = ({ title, description, index }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true });
-
-  const cardTransition: Transition = { 
-    duration: 0.6, 
-    delay: index * 0.1 
-  };
-
-  const hoverTransition: Transition = { 
-    duration: 0.3 
-  };
+const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
+  // Define colors for each card (matching the image)
+  const colors = [
+    'bg-gradient-to-r from-purple-500 to-purple-600', // Purple for 콘텐츠 제작
+    'bg-gradient-to-r from-blue-500 to-blue-600',     // Blue for 광고 캠페인
+    'bg-gradient-to-r from-cyan-500 to-cyan-600'      // Cyan for 브랜드 매니지먼트
+  ];
 
   return (
-    <motion.div
-      ref={ref}
-      className="rounded-lg p-6 h-50 flex flex-col justify-center items-center gap-10 text-center"
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={cardTransition}
-      whileHover={{ 
-        y: -10, 
-        boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-        transition: hoverTransition
-      }}
-    >
-        <hr className="w-[100px] bg-white"/>
-        <div>
-            <motion.h3 
-                className="text-2xl font-bold mb-4 text-white"
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: (index * 0.1) + 0.3 }}
-            >
-                {title}
-            </motion.h3>
-            <motion.p 
-                className="text-white"
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: (index * 0.1) + 0.4 }}
-            >
-                {description}
-            </motion.p>
-
-
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      {cards.map((card, index) => (
+        <div
+          key={index}
+          className="rounded-lg overflow-hidden w-[300px] mx-auto transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+        >
+          {/* Colored divider bar */}
+          <div className={`mx-auto h-1 w-16 rounded-full ${colors[index % colors.length]}`}></div>
+          
+          {/* Card content */}
+          <div className="p-6 text-center">
+            <h3 className="text-xl font-bold text-white mb-4">
+              {card.title}
+            </h3>
+            <p className="text-gray-300 leading-relaxed">
+              {card.description}
+            </p>
+          </div>  
         </div>
-    </motion.div>
-  );
-};
-
-interface AnimatedCardGridProps {
-  cards: CardData[];
-}
-
-const AnimatedCardGrid: React.FC<AnimatedCardGridProps> = ({ cards }) => {
-  return (
-    <section className="pt-10 px-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {cards.map((card: CardData, index: number) => (
-          <AnimatedCard 
-            key={index}
-            title={card.title}
-            description={card.description}
-            index={index}
-          />
-        ))}
-      </div>
-    </section>
+      ))}
+    </div>
   );
 };
 

@@ -6,16 +6,16 @@ const ContactUsCard = () => {
         bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-lg">
         
         {/* Top Section */}
-        <p className="text-sm text-white mb-4 text-center">
+        <p className="text-xl text-white text-center">
             Want to work with us? <br />
             <span className="text-purple-400">프로젝트 문의는 언제든지 환영합니다</span>
         </p>
 
         <h1 className="text-[3rem] md:text-[6rem] font-extrabold tracking-tight flex items-center justify-center gap-4 
-            bg-gradient-to-r from-purple-600 via-[#666666] to-purple-100 bg-clip-text text-transparent">
+            bg-gradient-to-r from-purple-100 to-purple-600 bg-clip-text text-transparent py-7">
             <span>GET</span>
             <span>IN</span>
-            <span className="w-12 h-12 md:w-24 md:h-24 rounded-full bg-[#c9c7b8] inline-block"></span>
+            <span className="w-12 h-12 md:w-24 md:h-24 rounded-full bg-radial-[at_25%_25%] from-purple-100 to-purple-800 to-75% inline-block"></span>
             <span>TOUCH</span>
         </h1>
 

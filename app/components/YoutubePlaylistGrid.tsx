@@ -339,13 +339,13 @@ const YouTubePlaylistGrid: React.FC<PlaylistGridProps> = ({
 
   return (
     <motion.div
-      className={`${className}`}
+      className={`flex justify-center items-center${className}`}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6 max-w-7xl">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-3 md:gap-6 max-w-7xl">
         {videos.map((video, index) => (
           <PlaylistVideoCard
             key={video.id}
