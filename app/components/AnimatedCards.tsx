@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Variants } from 'framer-motion';
 
 interface CardData {
   title: string;
@@ -27,7 +28,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
   };
 
   // Individual card animation variants
-  const cardVariants = {
+  const cardVariants : Variants = {
     hidden: {
       opacity: 0,
       y: 60,
@@ -45,7 +46,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
   };
 
   // Divider line animation variants
-  const dividerVariants = {
+  const dividerVariants : Variants = {
     hidden: {
       scaleX: 0,
       opacity: 0
@@ -62,7 +63,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
   };
 
   // Title animation variants
-  const titleVariants = {
+  const titleVariants : Variants = {
     hidden: {
       opacity: 0,
       y: 20
@@ -79,7 +80,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
   };
 
   // Description animation variants
-  const descriptionVariants = {
+  const descriptionVariants : Variants = {
     hidden: {
       opacity: 0,
       y: 15
@@ -159,7 +160,7 @@ const AnimatedCardGridAlt: React.FC<{ cards: CardData[] }> = ({ cards }) => {
     }
   };
 
-  const cardVariants = {
+  const cardVariants : Variants = {
     hidden: {
       opacity: 0,
       rotateY: -90,
