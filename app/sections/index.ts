@@ -1,8 +1,9 @@
 import { SectionOne } from "./SectionOne";
 import { SectionTwo } from "./SectionTwo";
 import { SectionThree } from "./SectionThree";
-import { SectionFour } from "./SectionFour";
-import { SectionFive } from "./SectionFive";
+import { PartnerInfluencerSection } from "./PartnerInfluencerSection";
+import { PortfolioSection } from "./PortfolioSection";
 import { PartnerChannelSection } from "./PartnerChannelSection";
+import { ContactSection } from "./ContactSection";
 
-export { SectionOne, SectionTwo, SectionThree, SectionFour, SectionFive, PartnerChannelSection };
+export { ContactSection, SectionOne, SectionTwo, SectionThree, PartnerInfluencerSection, PortfolioSection, PartnerChannelSection };
