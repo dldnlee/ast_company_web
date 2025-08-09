@@ -32,9 +32,9 @@ export default function InfluencersPage() {
   };
 
   return (
-    <div className="min-h-screen px-10 py-12">
+    <div className="min-h-screen px-5 sm:px-10 py-12">
       {/* Header with Back Button */}
-      <div className="flex items-center justify-center relative mb-8">
+      <div className="flex flex-col md:flex-row items-center justify-center relative mb-8">
         {/* Back Button */}
         <button
           onClick={handleBackClick}
@@ -45,19 +45,19 @@ export default function InfluencersPage() {
         </button>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-white text-center">
+        <h1 className="text-lg sm:text-3xl font-bold text-white text-center">
           OUR INFLUENCERS
         </h1>
       </div>
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-7xl mx-auto">
+      <div className="grid gap-3 sm:gap-8 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-7xl mx-auto">
         {influencerNames.map((inf, idx) => (
           <div
             key={idx}
             className="hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-2xl bg-white/10 backdrop-blur-md shadow hover:shadow-lg transition overflow-hidden"
             onClick={() => handleInfluencerClick(inf)}
           >
-            <div className="relative w-full h-[300px]">
+            <div className="relative w-full h-[150px] md:h-[300px]">
               <Image
                 src={`/partner_influencers/${inf.src}`}
                 alt={inf.socialId}
@@ -66,11 +66,11 @@ export default function InfluencersPage() {
               />
             </div>
             <div className="p-4">
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-sm md:text-lg font-semibold text-white">
                 {inf.socialId}
               </h2>
-              <p className="text-gray-500">@{inf.socialId}</p>
-              <p className="mt-2 text-sm text-gray-700">
+              <p className="text-xs md:text-sm text-gray-500">@{inf.socialId}</p>
+              <p className="mt-2 text-xs md:text-sm text-gray-700">
                 {inf.socialId} followers
               </p>
             </div>

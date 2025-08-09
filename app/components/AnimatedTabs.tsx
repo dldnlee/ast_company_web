@@ -94,20 +94,31 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
   };
 
   return (
-    <div className={`w-full  mx-auto p-6 ${className}`}>
-      <div className={`flex items-center justify-center sm:text-md text-sm overflow-x-auto gap-3 mb-6 ${tabClassName}`}>
+    <div className={`w-full mx-auto p-6 ${className} flex flex-col items-center justify-center`}>
+      <div
+        className={`
+          flex items-center justify-start sm:text-md text-sm
+          overflow-x-auto whitespace-nowrap md:gap-3 mb-6 ${tabClassName}
+        `}
+        // Make sure justify-start so scroll works well (justify-center will center content and disable scroll)
+      >
         {tabs.map((tab: TabData, index: number) => (
           <button
             key={index}
-            className={`relative px-4 py-2 font-medium transition-colors ${
-              activeTab === index ? 'text-purple-600 border-b-2 border-b-purple' : 'text-gray-500 hover:text-gray-700'
-            }`}
+            className={`
+              relative px-4 py-2 font-medium transition-colors
+              inline-block min-w-[80px] flex-shrink-0
+              ${activeTab === index
+                ? 'text-purple-600 border-b-2 border-b-purple font-semibold'
+                : 'text-gray-500 hover:text-gray-700'}
+            `}
             onClick={() => handleTabClick(index)}
           >
             {tab.label}
           </button>
         ))}
       </div>
+
       
       <AnimatePresence mode="wait">
         <motion.div

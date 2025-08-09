@@ -70,9 +70,6 @@ export function SectionOne() {
           }
       };
       
-    
-
-  
     return (
         <section className="relative w-full h-screen overflow-hidden bg-gradient-to-bl from-purple-800 to-black">
       {/* Background Video */}
@@ -86,7 +83,7 @@ export function SectionOne() {
       />
 
       {/* Overlay */}
-      <div className="relative z-10 flex flex-col gap-2 justify-end h-full px-20 pb-20 max-w-7xl mx-auto overflow-hidden">
+      <div className="relative z-10 flex flex-col gap-2 justify-end h-full px-10 md:px-20 pb-20 max-w-7xl mx-auto overflow-hidden">
         <GradualSpacing text="AST Company"/>
         <motion.p 
         initial={{
