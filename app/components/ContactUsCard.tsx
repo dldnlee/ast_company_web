@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
+import { Variants } from "motion/react"; // or "motion/react" depending on the package
 import React from "react";
 
 const ContactUsCard = () => {
-  const containerVariants = {
+  const containerVariants : Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -13,7 +14,7 @@ const ContactUsCard = () => {
     },
   };
 
-  const wordVariants = {
+  const wordVariants : Variants = {
     hidden: {
       opacity: 0,
       y: 50,
@@ -30,7 +31,7 @@ const ContactUsCard = () => {
     },
   };
 
-  const ballVariants = {
+  const ballVariants : Variants = {
     hidden: {
       scale: 0,
       opacity: 0,
@@ -75,7 +76,7 @@ const ContactUsCard = () => {
           bg-gradient-to-r from-purple-100 to-purple-600
           bg-clip-text text-transparent
           py-2 md:py-7
-          flex-col sm:flex-row
+          flex-col lg:flex-row
         "
         variants={containerVariants}
         initial="hidden"

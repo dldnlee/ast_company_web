@@ -1,6 +1,7 @@
 import { motion } from "motion/react"
+import { Variants } from "motion/react"; // or "motion/react" depending on the package
+
 import { GradualSpacing } from "../components/GradualSpacing"
-import GlitchText from "../components/GlitchText"
 import React from "react";
 
 
@@ -16,7 +17,7 @@ const StaggeredPhrases = () => {
     }
   };
 
-  const phraseVariants = {
+  const phraseVariants : Variants = {
     hidden: {
       opacity: 0,
       rotateX: -90,
