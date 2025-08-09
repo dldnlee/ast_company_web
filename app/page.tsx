@@ -5,35 +5,37 @@ import TopNavigationBar from './components/TopNavigationBar';
 import { ContactSection, PartnerChannelSection, PortfolioSection, PartnerInfluencerSection, SectionOne, SectionThree, SectionTwo, FooterSection } from './sections';
 
 export default function HomePage() {
-
   return (
     <main className="text-white overflow-x-hidden">
-      {/* Background Balls */}
-      {/* <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none background-balls" /> */}
-
       {/* Header */}
       <TopNavigationBar />
 
-      {/* Hero */}
-      <SectionOne />
+      {/* Hero Section */}
+      <section id="home">
+        <SectionOne />
+      </section>
 
-      {/* About */}
-      <SectionTwo />
+      {/* About Section */}
+      <section id="about">
+        <SectionTwo />
+      </section>
 
-      {/* Partner Channel */}
-      <SectionThree />
+      {/* Partner Channel Section - treating as "Clients" */}
+      <section id="clients">
+        <SectionThree />
+        <PartnerInfluencerSection />
+        <PartnerChannelSection />
+      </section>
 
-      {/* Partner Influencers */}
-      <PartnerInfluencerSection />
-      
-      {/* PartnerInfluencers */}
-      <PartnerChannelSection />
+      {/* Portfolio Section */}
+      <section id="portfolio">
+        <PortfolioSection />
+      </section>
 
-      {/* Portfolios */}
-      <PortfolioSection />
-
-      {/* Contact Us Card */}
-      <ContactSection />
+      {/* Contact Section */}
+      <section id="contact">
+        <ContactSection />
+      </section>
 
       {/* Footer */}
       <FooterSection />

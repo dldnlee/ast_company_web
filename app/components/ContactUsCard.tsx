@@ -65,7 +65,6 @@ const ContactUsCard = () => {
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
             >
             <motion.span variants={wordVariants}>GET</motion.span>
             <motion.span variants={wordVariants}>IN</motion.span>
