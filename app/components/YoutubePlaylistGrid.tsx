@@ -184,7 +184,7 @@ const useYouTubePlaylist = (playlistId: string, apiKey: string, maxResults: numb
     fetchPlaylistVideos();
   }, [playlistId, apiKey, maxResults]);
 
-  return { videos, loading, error, refetch: () => fetchPlaylistVideos() };
+  return { videos, loading, error};
 };
 
 const PlaylistVideoCard: React.FC<{ 
