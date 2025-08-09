@@ -40,11 +40,12 @@ const PartnerChannelCarousel = () => {
     <motion.div
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.5, duration: 0.5 }}
+    transition={{ delay: 0.2, duration: 0.5 }}
+    viewport={{ once: true }}
     className="w-full max-w-6xl mx-auto text-white p-6 rounded-lg overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold tracking-wider">PARTNER CHANNELS</h2>
+        <h2 className="text-4xl font-bold tracking-wider">PARTNER CHANNELS</h2>
         <div className="flex flex-col gap-2">
           <button
             onClick={prevSlide}
