@@ -328,7 +328,7 @@ const YouTubePlaylistGrid: React.FC<PlaylistGridProps> = ({
 
   if (error) {
     return (
-      <div className={`p-6 bg-gray-950 min-h-screen flex items-center justify-center ${className}`}>
+      <div className={`p-6 flex items-center justify-center ${className}`}>
         <div className="text-center max-w-md">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
           <h2 className="text-white text-2xl font-bold mb-2">Error Loading Playlist</h2>

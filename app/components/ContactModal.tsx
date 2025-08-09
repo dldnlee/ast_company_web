@@ -1,6 +1,6 @@
 import { Variants } from "motion";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface FormData {
   channel: string;
@@ -56,6 +56,12 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
       }
     }
   };
+  useEffect(() => {
+  setFormData(prev => ({
+    ...prev,
+    channel: influencerId || '',
+  }));
+}, [influencerId]);
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) {
@@ -122,6 +128,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder=""
+                  disabled
                 />
               </div>
 
@@ -155,7 +162,8 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   name="title"
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent  bg-white"
+                  placeholder="문의 제목을 입력해주세요"
                 />
               </div>
 
@@ -169,7 +177,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   name="contact"
                   value={formData.contact}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent  bg-white"
                   placeholder="연락처를 입력해주세요"
                 />
               </div>
@@ -184,7 +192,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   value={formData.content}
                   onChange={handleInputChange}
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none  bg-white"
                   placeholder="콘텐츠 유형, 예산, 원하시는 일정 등 세부 사항을 기입해주세요."
                 />
               </div>

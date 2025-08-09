@@ -7,7 +7,7 @@ const Highlights: React.FC = () => (
   <div className="space-y-4">
   <div className="space-y-4">
     <YouTubePlaylistGrid
-    playlistId="PLvjagzFLlq9FZavd7KqLFRxZqeZK0h4O-"
+    playlistId="PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
     maxResults={6}
     />
@@ -19,7 +19,7 @@ const BrandFilms: React.FC = () => (
   <div className="space-y-4">
   <div className="space-y-4">
     <YouTubePlaylistGrid
-    playlistId="PLvjagzFLlq9FZavd7KqLFRxZqeZK0h4O-"
+    playlistId="PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
     maxResults={6}
     />
@@ -30,7 +30,7 @@ const BrandFilms: React.FC = () => (
 const BrandedFilms: React.FC = () => (
     <div className="space-y-4">
     <YouTubePlaylistGrid
-    playlistId="PLvjagzFLlq9FZavd7KqLFRxZqeZK0h4O-"
+    playlistId="PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
     maxResults={6}
     />
@@ -40,7 +40,7 @@ const BrandedFilms: React.FC = () => (
 const ShortForms: React.FC = () => (
   <div className="space-y-4">
     <YouTubePlaylistGrid
-    playlistId="PLvjagzFLlq9FZavd7KqLFRxZqeZK0h4O-"
+    playlistId="PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
     maxResults={6}
     />
