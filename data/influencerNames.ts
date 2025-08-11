@@ -59,9 +59,9 @@ export const influencerNames = [
     "socialId": "jun_tarzan",
     "followers": "28.1만"
   },
-  {
-    "src": "comingsoon.png",
-    "socialId": "comingsoon_social_id",
-    "followers": "0"
-  },
+  // {
+  //   "src": "comingsoon.png",
+  //   "socialId": "comingsoon_social_id",
+  //   "followers": "0"
+  // },
 ]

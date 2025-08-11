@@ -2,7 +2,7 @@
 export const channelNames =
 [
   {
-    "channelName": "Diva Gabee Girl",
+    "channelName": "가비 걸 GABEE GIRL",
     "src": "gabee.jpg",
     "channelLink": "https://example.com/gebes"
   },
@@ -12,7 +12,7 @@ export const channelNames =
     "channelLink": "https://example.com/yuna"
   },
   {
-    "channelName": "솔코 스테이지 SOLCHORD",
+    "channelName": "할인광 / 조정민의조짜르트",
     "src": "solomon.jpg",
     "channelLink": "https://example.com/solomon"
   },
@@ -27,7 +27,7 @@ export const channelNames =
     "channelLink": "https://example.com/minji"
   },
   {
-    "channelName": "아쌉스튜디오",
+    "channelName": "한끼오천원",
     "src": "hankki.jpg",
     "channelLink": "https://example.com/hankii"
   },
