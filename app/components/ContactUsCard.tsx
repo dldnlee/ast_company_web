@@ -1,8 +1,14 @@
 import { motion } from "motion/react";
 import { Variants } from "motion/react"; // or "motion/react" depending on the package
-import React from "react";
+import React, { useState } from "react";
+import ContactUsModal from "./ContactUsModal";
 
 const ContactUsCard = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleCloseModal = (): void => {
+    setIsModalOpen(false);
+  };
   const containerVariants : Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -97,6 +103,7 @@ const ContactUsCard = () => {
             boxShadow: "0 10px 25px rgba(124, 58, 237, 0.5)"
           }}
           transition={{ duration: 0.3 }}
+          onClick={() => setIsModalOpen(true)}
         />
         <motion.span variants={wordVariants}>TOUCH</motion.span>
       </motion.h1>
@@ -123,6 +130,10 @@ const ContactUsCard = () => {
           <li>서울특별시 서초구 매헌로 16, 1313호</li>
         </ul>
       </motion.div>
+      <ContactUsModal 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
