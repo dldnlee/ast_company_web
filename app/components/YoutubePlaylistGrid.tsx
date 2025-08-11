@@ -7,7 +7,8 @@ interface YouTubeVideo {
   title: string;
   description: string;
   channelTitle: string;
-  publishedAt: string;
+  publishedAt: string; // Now the actual video publish date
+  addedToPlaylistAt: string; // When added to playlist
   thumbnails: {
     default: string;
     medium: string;
@@ -44,7 +45,7 @@ interface YouTubePlaylistItem {
     title: string;
     description: string;
     channelTitle: string;
-    publishedAt: string;
+    publishedAt: string; // When added to playlist
     resourceId: {
       videoId: string;
     };
@@ -60,6 +61,9 @@ interface YouTubePlaylistItem {
 interface YouTubeVideoDetailsResponse {
   items: Array<{
     id: string;
+    snippet: {
+      publishedAt: string; // Actual video publish date
+    };
     contentDetails: {
       duration: string;
     };
@@ -134,9 +138,9 @@ const useYouTubePlaylist = (playlistId: string, apiKey: string, maxResults: numb
           .filter(Boolean)
           .join(',');
 
-        // Fetch video details (duration, view count)
+        // Fetch video details (duration, view count, AND actual publish date)
         const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?` +
-          `part=contentDetails,statistics&id=${videoIds}&key=${apiKey}`;
+          `part=snippet,contentDetails,statistics&id=${videoIds}&key=${apiKey}`;
         
         const videoDetailsResponse = await fetch(videoDetailsUrl);
         const videoDetailsData: YouTubeVideoDetailsResponse = videoDetailsResponse.ok 
@@ -155,7 +159,10 @@ const useYouTubePlaylist = (playlistId: string, apiKey: string, maxResults: numb
             title: item.snippet.title,
             description: item.snippet.description,
             channelTitle: item.snippet.channelTitle,
-            publishedAt: item.snippet.publishedAt,
+            // Use actual video publish date from video details, fallback to playlist date
+            publishedAt: videoDetails?.snippet?.publishedAt || item.snippet.publishedAt,
+            // Keep the playlist addition date as separate field
+            addedToPlaylistAt: item.snippet.publishedAt,
             thumbnails: {
               default: item.snippet.thumbnails.default?.url || '',
               medium: item.snippet.thumbnails.medium?.url || '',
