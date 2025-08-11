@@ -21,7 +21,7 @@ const PartnerChannelCarousel = () => {
 
       {/* Scrollable container */}
       <div
-        className="overflow-y-auto rounded-lg h-[350px] sm:h-[800px] scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"
+        className="overflow-y-auto scrollbar-hidden rounded-lg h-[350px] sm:h-[800px] scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"
         // Optional: add onMouseEnter/onMouseLeave handlers if you want autoplay logic later
       >
         <div className="flex flex-col gap-4">

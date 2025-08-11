@@ -20,6 +20,17 @@
 }
 
 @layer utilities {
+  .scrollbar-hidden::-webkit-scrollbar {
+      display: none;
+    }
+  /* Firefox */
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+  /* IE and Edge */
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+  }
   @keyframes float {
     0% {
       transform: translateY(0) translateX(0);
