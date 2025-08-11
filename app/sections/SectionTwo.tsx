@@ -9,19 +9,19 @@ interface CardData {
 
 const sectionItems: CardData[] = [
     {
-    title: "콘텐츠 제작",
+    title: "We Create",
     description:
-        "브랜드의 가치를 담은 고품질 영상 콘텐츠를 제작합니다.",
+        "브랜드의 가치를 담아 이야기하며,\n소비자를 움직이는 콘텐츠를 기획 및 제작합니다.",
     },
     {
-    title: "광고 캠페인",
+    title: "We Connect",
     description:
-        "효과적인 광고 전략으로 브랜드의 인지도를 높입니다.",
+        "브랜드와 어울리는 콘텐츠 파트너십을 디자인.\nAST는 브랜드와 소비자 간의 접점을 만듭니다.",
     },
     {
-    title: "브랜드 매니지먼트",
+    title: "We Convert",
     description:
-        "종합적인 브랜드 관리 서비스를 제공합니다.",
+        "퍼포먼스로 증명하는 콘텐츠 마케팅.\n성공적인 캠페인부터 실제 전환까지의 가치를 제공합니다.",
     },
 ];
 
@@ -34,7 +34,10 @@ export function SectionTwo() {
                     ABOUT
                     <span className="text-white text-5xl"> US</span>
                 </p> 
-                <p className="text-xl w-[350px] text-center text-white/70">소비자를 사로잡는 콘텐츠 광고주에게 돌아오는 확실한 가치</p>
+                <div>
+                    <p className="text-xl text-center text-white/70">소비자를 사로잡는 콘텐츠</p>
+                    <p className="text-xl text-center text-white/70">광고주에게 돌아오는 확실한 가치</p>
+                </div>
             </h2>
             <AnimatedCardGrid cards={sectionItems} />
         </section>

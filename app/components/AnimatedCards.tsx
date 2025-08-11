@@ -107,7 +107,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
       {cards.map((card, index) => (
         <motion.div
           key={index}
-          className="rounded-lg overflow-hidden w-[300px] mx-auto transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          className="rounded-lg overflow-hidden w-[320px] mx-auto transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
           variants={cardVariants}
           whileHover={{ 
             scale: 1.05,

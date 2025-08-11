@@ -13,6 +13,7 @@ import ContactModal from '../components/ContactModal';
 interface Influencer {
   src: string;
   socialId: string;
+  followers: string;
 }
 
 // Main Component
@@ -31,7 +32,7 @@ export function PartnerInfluencerSection(): JSX.Element {
   };
 
   return (
-    <section className='flex flex-col items-center justify-center gap-10 py-16 px-10'>
+    <section className='flex flex-col items-center justify-center gap-10 pb-20 px-10'>
       <h2 className="text-4xl font-bold text-white mb-4 text-center">OUR PARTNER INFLUENCERS</h2>
       <Swiper
         initialSlide={3}
@@ -60,7 +61,7 @@ export function PartnerInfluencerSection(): JSX.Element {
                 alt={item.src} 
                 className='rounded-2xl hover:shadow-lg transition-shadow duration-300' 
               />
-              <p className='font-bold text-center mt-2'>@{item.socialId}</p>
+              <p className='font-bold text-center mt-2'>@{item.socialId} <span>| {item.followers}</span></p>
             </div>
           </SwiperSlide>  
         ))}
