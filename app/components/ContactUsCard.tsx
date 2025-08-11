@@ -87,11 +87,16 @@ const ContactUsCard = () => {
           <motion.span variants={wordVariants}> IN</motion.span>
         </div>
         <motion.span
-          className="w-12 h-12 md:w-24 md:h-24 rounded-full inline-block"
           style={{
             background: "radial-gradient(at 25% 25%, #f3f4f6 0%, #7c3aed 75%)",
           }}
+          className="w-12 h-12 md:w-24 md:h-24 rounded-full inline-block cursor-pointer "
           variants={ballVariants}
+          whileHover={{ 
+            scale: 1.1,
+            boxShadow: "0 10px 25px rgba(124, 58, 237, 0.5)"
+          }}
+          transition={{ duration: 0.3 }}
         />
         <motion.span variants={wordVariants}>TOUCH</motion.span>
       </motion.h1>
