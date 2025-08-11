@@ -21,7 +21,8 @@ const InfiniteScrollPartners = () => {
   return (
     <div className="w-full pb-20 overflow-hidden">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-4">OUR PARTNERS</h2>
+        <h2 className="text-4xl font-bold text-white mb-4">OUR CLIENTS</h2>
+        <p className="text-xl text-center text-white/70">AST와 함께하는 클라이언트</p>
       </div>
 
       {/* First row - scrolling right */}
