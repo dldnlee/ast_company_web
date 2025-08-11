@@ -211,7 +211,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   initial="form"
                   animate="form"
                   exit="success"
-                  className="p-8 max-w-md w-full min-w-[500px] max-h-[90vh] overflow-y-auto"
+                  className="p-8 max-h-[90vh] w-xs sm:w-md"
                 >
                   {/* Header */}
                   <div className="flex items-center justify-between mb-6">
@@ -227,7 +227,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                   </div>
 
                   {/* Form */}
-                  <div className="space-y-4">
+                  <div className="space-y-4 w-full">
                     {/* 문의 채널 */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">

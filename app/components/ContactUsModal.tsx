@@ -171,7 +171,7 @@ const ContactUsModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 backdrop-blur-lg bg-opacity-50 flex items-center justify-center z-50 p-4"
+          className="fixed  flex items-center justify-center z-50 p-4"
           variants={backdropVariants}
           initial="hidden"
           animate="visible"
@@ -194,7 +194,7 @@ const ContactUsModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                   initial="form"
                   animate="form"
                   exit="success"
-                  className="p-8 w-full max-w-2xl min-w-[600px] max-h-[90vh] overflow-y-auto"
+                  className="p-8 w-xs sm:w-md max-h-[90vh] overflow-y-auto"
                 >
                   {/* Header */}
                   <div className="flex items-center justify-between mb-8">
