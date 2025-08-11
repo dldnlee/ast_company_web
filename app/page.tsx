@@ -23,8 +23,8 @@ export default function HomePage() {
       {/* Partner Channel Section - treating as "Clients" */}
       <section id="clients">
         <SectionThree />
-        <PartnerInfluencerSection />
         <PartnerChannelSection />
+        <PartnerInfluencerSection />
       </section>
 
       {/* Portfolio Section */}
