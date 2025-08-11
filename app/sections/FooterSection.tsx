@@ -29,7 +29,7 @@ export function FooterSection() {
       />
 
       {/* Tagline */}
-      <p className="mb-6">Creative Content Agency</p>
+      <p className="mb-6">AST Media Group</p>
 
       {/* Navigation */}
       <nav className="hidden md:flex items-center justify-center gap-6 text-sm font-medium mb-6">
@@ -46,7 +46,7 @@ export function FooterSection() {
       </nav>
 
       {/* Social Icons */}
-      <div className="flex justify-center gap-6 text-xl mb-8">
+      {/* <div className="flex justify-center gap-6 text-xl mb-8">
         <a
           href="https://instagram.com/ast__company"
           className="hover:text-purple-400 transition-colors"
@@ -59,7 +59,7 @@ export function FooterSection() {
         <a href="#" className="hover:text-purple-400 transition-colors">
           <FaLinkedin />
         </a>
-      </div>
+      </div> */}
 
       {/* Copyright */}
       <p className="text-sm">© 2024 ASTCOMPANY. All rights reserved.</p>
