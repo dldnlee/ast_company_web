@@ -2,47 +2,51 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import YouTubePlaylistGrid from "./YoutubePlaylistGrid";
 
+interface TabProps {
+  maxResults? : number;
+}
+
 // Sample React components for tab content
-const Highlights: React.FC = () => (
+const Highlights: React.FC<TabProps> = ({maxResults}) => (
   <div className="space-y-4">
   <div className="space-y-4">
     <YouTubePlaylistGrid
     playlistId="PLMyrXvS6JvAZH-qyY1PRivv55GW9ruPeQ"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
-    maxResults={6}
+    maxResults={maxResults}
     />
   </div>
   </div>
 );
 
-const BrandFilms: React.FC = () => (
+const BrandFilms: React.FC<TabProps> = ({maxResults}) => (
   <div className="space-y-4">
   <div className="space-y-4">
     <YouTubePlaylistGrid
     playlistId="PLMyrXvS6JvAa7xW-h0zlK2NPDcTGbbie0"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
-    maxResults={6}
+    maxResults={maxResults}
     />
   </div>
   </div>
 );
 
-const BrandedFilms: React.FC = () => (
+const BrandedFilms: React.FC<TabProps> = ({maxResults}) => (
     <div className="space-y-4">
     <YouTubePlaylistGrid
     playlistId="PLMyrXvS6JvAbs053ReVy_hspIDrau85ub"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
-    maxResults={6}
+    maxResults={maxResults}
     />
   </div>
 );
 
-const ShortForms: React.FC = () => (
+const ShortForms: React.FC<TabProps> = ({maxResults}) => (
   <div className="space-y-4">
     <YouTubePlaylistGrid
     playlistId="PLMyrXvS6JvAZ_6RNhbn_Xa17u-GEnDF63"
     apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
-    maxResults={6}
+    maxResults={maxResults}
     />
   </div>
 );
@@ -58,32 +62,34 @@ interface AnimatedTabsProps {
   className?: string;
   tabClassName?: string;
   contentClassName?: string;
+  maxResults?: number;
 }
 
 export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({ 
   tabs: customTabs, 
   className = "",
   tabClassName = "",
-  contentClassName = ""
+  contentClassName = "",
+  maxResults = 6
 }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   
   const defaultTabs: TabData[] = [
     { 
       label: "모두보기", 
-      content: <Highlights /> 
+      content: <Highlights maxResults={maxResults} /> 
     },
     { 
       label: "브랜디드/PPL콘텐츠", 
-      content: <BrandedFilms /> 
+      content: <BrandedFilms maxResults={maxResults} /> 
     },
     { 
       label: "브랜드 필름", 
-      content: <BrandFilms /> 
+      content: <BrandFilms maxResults={maxResults} /> 
     },
     { 
       label: "숏폼", 
-      content: <ShortForms /> 
+      content: <ShortForms maxResults={maxResults} /> 
     }
   ];
 
