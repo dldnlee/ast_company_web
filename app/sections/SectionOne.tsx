@@ -73,7 +73,7 @@ export function SectionOne() {
       {/* Background Video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover opacity-90"
-        src="/videos/purple_graphic.mp4" // Replace with your video path
+        src="/videos/purple.mp4" // Replace with your video path
         autoPlay
         loop
         muted
