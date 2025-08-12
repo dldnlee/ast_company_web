@@ -5,13 +5,6 @@
   --foreground: #ededed;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-inter: var(--font-inter);
-  --font-poppins: var(--font-poppins);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -49,11 +42,38 @@
     animation-duration: 2s;
     animation-iteration-count: infinite;
   }
-}
 
+  /* Font utility classes */
+  .font-inter {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .font-poppins {
+    font-family: var(--font-poppins), sans-serif;
+  }
+
+  .font-geist-sans {
+    font-family: var(--font-geist-sans), sans-serif;
+  }
+
+  .font-geist-mono {
+    font-family: var(--font-geist-mono), monospace;
+  }
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Use Inter as the default body font */
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* Set Poppins for headings by default */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+/* Set Geist Mono for code elements */
+code, pre {
+  font-family: var(--font-geist-mono), monospace;
 }

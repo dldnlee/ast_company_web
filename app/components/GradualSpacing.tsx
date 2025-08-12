@@ -9,7 +9,7 @@ export function GradualSpacing({ text = 'Gradual Spacing' }: { text: string }) {
     <div className="flex space-x-1">
       <AnimatePresence>
         {text.split('').map((char, i) => (
-          <motion.p
+          <motion.h1
             ref={ref}
             key={i}
             initial={{ opacity: 0, x: -18 }}
@@ -19,7 +19,7 @@ export function GradualSpacing({ text = 'Gradual Spacing' }: { text: string }) {
             className="text-3xl sm:text-4xl font-bold tracking-tighter md:text-6xl md:leading-[4rem]"
           >
             {char === ' ' ? <span>&nbsp;</span> : char}
-          </motion.p>
+          </motion.h1>
         ))}
       </AnimatePresence>
     </div>
