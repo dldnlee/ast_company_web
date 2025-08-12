@@ -221,13 +221,13 @@ const PlaylistVideoCard: React.FC<{
   };
 
   const bestThumbnail = video.thumbnails.maxres || 
-                       video.thumbnails.high || 
-                       video.thumbnails.medium || 
-                       video.thumbnails.default;
+                      video.thumbnails.high || 
+                      video.thumbnails.medium || 
+                      video.thumbnails.default;
 
   return (
     <motion.div
-      className="group relative bg-[#A0A0A0] text-black rounded-lg overflow-hidden cursor-pointer"
+      className="group relative bg-white text-black rounded-lg overflow-hidden cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -269,7 +269,6 @@ const PlaylistVideoCard: React.FC<{
                 loading="lazy"
               />
               
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -277,7 +276,7 @@ const PlaylistVideoCard: React.FC<{
 
       {/* Video Info */}
       <div className="p-3 md:p-4">
-        <h3 className="text-black font-semibold text-xs md:text-md mb-1 line-clamp-2 group-hover:text-red-400 transition-colors">
+        <h3 className="text-black font-semibold text-xs md:text-md mb-1 line-clamp-2 group-hover:text-purple-600 transition-colors">
           {video.title}
         </h3>
         

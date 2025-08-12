@@ -74,12 +74,12 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
       content: <Highlights /> 
     },
     { 
-      label: "브랜드 필름", 
-      content: <BrandFilms /> 
-    },
-    { 
       label: "브랜디드/PPL콘텐츠", 
       content: <BrandedFilms /> 
+    },
+    { 
+      label: "브랜드 필름", 
+      content: <BrandFilms /> 
     },
     { 
       label: "숏폼", 
