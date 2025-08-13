@@ -98,7 +98,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
 
   return (
     <motion.div 
-      className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4"
+      className="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -107,7 +107,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
       {cards.map((card, index) => (
         <motion.div
           key={index}
-          className="rounded-lg overflow-hidden min-w-[350px] mx-auto transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          className="flex flex-col items-center justify-center w-[410px] transform transition-all duration-300 hover:scale-105"
           variants={cardVariants}
           whileHover={{ 
             scale: 1.05,
@@ -123,7 +123,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
           />
           
           {/* Card content */}
-          <div className="p-6 text-center">
+          <div className="py-6 text-center">
             <motion.h3 
               className="text-xl font-bold text-white mb-4"
               variants={titleVariants}
@@ -131,80 +131,11 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
               {card.title}
             </motion.h3>
             <motion.p 
-              className="text-gray-300 leading-relaxed"
+              className="text-gray-300 leading-relaxed whitespace-pre-line"
               variants={descriptionVariants}
             >
               {card.description}
             </motion.p>
-          </div>  
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-};
-
-// Alternative version with different animation style
-const AnimatedCardGridAlt: React.FC<{ cards: CardData[] }> = ({ cards }) => {
-  const colors = [
-    'bg-gradient-to-r from-purple-500 to-purple-600',
-    'bg-gradient-to-r from-blue-500 to-blue-600',
-    'bg-gradient-to-r from-cyan-500 to-cyan-600'
-  ];
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const cardVariants : Variants = {
-    hidden: {
-      opacity: 0,
-      rotateY: -90,
-      z: -100
-    },
-    visible: {
-      opacity: 1,
-      rotateY: 0,
-      z: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  return (
-    <motion.div 
-      className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4"
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ amount: 0.2 }}
-      style={{ perspective: 1000 }}
-    >
-      {cards.map((card, index) => (
-        <motion.div
-          key={index}
-          className="rounded-lg overflow-hidden w-[300px] mx-auto transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          variants={cardVariants}
-          whileHover={{ 
-            scale: 1.05,
-            rotateY: 5,
-            transition: { duration: 0.2 }
-          }}
-        >
-          <div className={`mx-auto h-1 w-16 rounded-full ${colors[index % colors.length]}`}></div>
-          <div className="p-6 text-center">
-            <h3 className="text-xl font-bold text-white mb-4">
-              {card.title}
-            </h3>
-            <p className="text-gray-300 leading-relaxed">
-              {card.description}
-            </p>
           </div>  
         </motion.div>
       ))}

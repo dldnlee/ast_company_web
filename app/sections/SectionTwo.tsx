@@ -39,7 +39,9 @@ export function SectionTwo() {
                     <p className="text-xl text-center text-white/70">광고주에게 돌아오는 확실한 가치</p>
                 </div>
             </h2>
-            <AnimatedCardGrid cards={sectionItems} />
+            <div className="flex items-center justify-center">
+                <AnimatedCardGrid cards={sectionItems} />
+            </div>
         </section>
     )
 }

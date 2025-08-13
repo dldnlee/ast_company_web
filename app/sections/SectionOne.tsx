@@ -36,7 +36,7 @@ const StaggeredPhrases = () => {
 
   return (
     <motion.h3
-      className="text-md md:text-xl flex items-center gap-4 flex-wrap"
+      className="text-xs md:text-xl flex items-center gap-4 flex-wrap"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
@@ -93,10 +93,10 @@ export function SectionOne() {
         transition={{
             duration: 1.5
         }}
-        className="text-white text-xl">브랜드를 콘텐츠로 세상과 연결하다</motion.p>
+        className="text-white text-xs md:text-xl">브랜드를 콘텐츠로 세상과 연결하다</motion.p>
         <StaggeredPhrases />
         <motion.h3 initial={{opacity:0}} animate={{opacity:1}} transition={{delay: 1, duration:2}} className="text-xl font-semibold">At the Same Time</motion.h3>
-        <div className="flex gap-4 mt-5">
+        <div className="flex gap-4 mt-5 text-xs md:text-md">
           <a className="border py-3 px-4 hover:border-purple-600 hover:text-purple-600" href={`#portfolio`} onClick={(e) => handleNavClick(e, 'portfolio')}>VIEW PORTFOLIO</a>
           <a className="border py-3 px-4 hover:border-purple-600 hover:text-purple-600" href={`#contact`} onClick={(e) => handleNavClick(e, 'contact')}>CONTACT US</a>
         </div>

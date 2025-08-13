@@ -47,7 +47,7 @@ export default function VideosPage() {
 
         {/* Title */}
         <h1 className="text-lg sm:text-3xl font-bold text-white text-center">
-          OUR INFLUENCERS
+          OUR WORKS
         </h1>
       </div>
       <AnimatedTabs maxResults={200} />

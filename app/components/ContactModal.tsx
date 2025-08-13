@@ -257,10 +257,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                         disabled={loading}
                       >
                         <option value="">선택해주세요</option>
-                        <option value="collaboration">협업 문의</option>
-                        <option value="partnership">파트너십</option>
-                        <option value="general">일반 문의</option>
-                        <option value="technical">기술 지원</option>
+                        <option value="collaboration">광고 문의</option>
+                        <option value="appearance">출연 문의</option>
+                        <option value="event">행사 초청 문의</option>
+                        <option value="new_campaign">신규 켐페인 기획</option>
                         <option value="other">기타</option>
                       </select>
                     </div>

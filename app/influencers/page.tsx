@@ -46,7 +46,7 @@ export default function InfluencersPage() {
 
         {/* Title */}
         <h1 className="text-lg sm:text-3xl font-bold text-white text-center">
-          OUR INFLUENCERS
+          PARTNER INFLUENCERS
         </h1>
       </div>
 
