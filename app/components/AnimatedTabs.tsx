@@ -100,7 +100,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
   };
 
   return (
-    <div className={`w-full mx-auto p-6 ${className} flex flex-col items-center justify-center`}>
+    <div className={`w-full mx-auto p-4 md:p-6 ${className} flex flex-col items-center justify-center`}>
       <div
         className={`
           flex items-center justify-start sm:text-md text-sm
@@ -112,7 +112,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
           <button
             key={index}
             className={`
-              relative px-4 py-2 font-medium transition-colors
+              relative px-3 py-2 font-medium transition-colors
               inline-block min-w-[80px] flex-shrink-0
               ${activeTab === index
                 ? 'text-purple-600 border-b-2 border-b-purple font-semibold'
@@ -133,7 +133,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className={`p-6 rounded-lg ${contentClassName}`}
+          className={`p-1 md:p-6 rounded-lg ${contentClassName}`}
         >
           {tabs[activeTab].content}
         </motion.div>

@@ -33,13 +33,13 @@ export default function VideosPage() {
   };
 
   return (
-    <div className="min-h-screen px-5 sm:px-10 py-12">
+    <div className="min-h-screen py-12">
       {/* Header with Back Button */}
       <div className="flex flex-col md:flex-row items-center justify-center relative mb-8">
         {/* Back Button */}
         <button
           onClick={handleBackClick}
-          className="absolute left-0 flex items-center gap-2 cursor-pointer text-white hover:text-purple-400 transition-colors group"
+          className="absolute left-10 flex items-center gap-2 cursor-pointer text-white hover:text-purple-400 transition-colors group"
         >
           <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
           <span>Back</span>

@@ -227,7 +227,7 @@ const PlaylistVideoCard: React.FC<{
 
   return (
     <motion.div
-      className="group relative bg-white text-black rounded-lg overflow-hidden cursor-pointer"
+      className="group relative bg-white text-black rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -275,18 +275,18 @@ const PlaylistVideoCard: React.FC<{
       </div>
 
       {/* Video Info */}
-      <div className="p-3 md:p-4">
-        <h3 className="text-black font-semibold text-xs md:text-md mb-1 line-clamp-2 group-hover:text-purple-600 transition-colors">
+      <div className="p-2 sm:p-3 lg:p-4">
+        <h3 className="text-black font-semibold text-sm sm:text-base lg:text-lg mb-2 line-clamp-2 group-hover:text-purple-600 transition-colors leading-tight">
           {video.title}
         </h3>
         
-        <div className="flex items-center justify-between text-xs ">
-          <span className="">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-600">
+          <span className="truncate mr-2">
             {new Date(video.publishedAt).toLocaleDateString()}
           </span>
           
           {video.viewCount && (
-            <span>{video.viewCount} views</span>
+            <span className="shrink-0">{video.viewCount} views</span>
           )}
         </div>
       </div>
@@ -326,18 +326,22 @@ const YouTubePlaylistGrid: React.FC<PlaylistGridProps> = ({
 
   if (loading) {
     return (
-      <div className={`p-6 flex items-center justify-center ${className}`}>
-        <p className="text-white text-lg">영상 불러오는중...</p>
+      <div className={`p-4 sm:p-6 lg:p-8 flex items-center justify-center ${className}`}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 sm:h-12 sm:w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white text-sm sm:text-lg">영상 불러오는중...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className={`p-6 flex items-center justify-center ${className}`}>
+      <div className={`p-4 sm:p-6 lg:p-8 flex items-center justify-center ${className}`}>
         <div className="text-center max-w-md">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-white text-2xl font-bold mb-2">Error Loading Playlist</h2>
+          <div className="text-red-500 text-4xl sm:text-6xl mb-4">⚠️</div>
+          <h2 className="text-white text-xl sm:text-2xl font-bold mb-2">Error Loading Playlist</h2>
+          <p className="text-gray-300 text-sm sm:text-base">{error}</p>
         </div>
       </div>
     );
@@ -345,26 +349,39 @@ const YouTubePlaylistGrid: React.FC<PlaylistGridProps> = ({
 
   return (
     <motion.div
-      className={`flex justify-center items-center${className}`}
+      className={`w-full px-2 sm:px-4 lg:px-8 ${className}`}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-3 md:gap-6 max-w-7xl">
-        {videos.map((video, index) => (
-          <PlaylistVideoCard
-            key={video.id}
-            video={video}
-            index={index}
-            autoPlay={autoPlay}
-          />
-        ))}
+      {/* Responsive Grid Container */}
+      <div className="max-w-7xl mx-auto">
+        <div className="grid 
+          grid-cols-2
+          xs:grid-cols-2
+          sm:grid-cols-2 
+          md:grid-cols-3 
+          lg:grid-cols-3 
+          xl:grid-cols-3 
+          2xl:grid-cols-3
+          gap-3 
+          sm:gap-4 
+          md:gap-5 
+          lg:gap-6
+        ">
+          {videos.map((video, index) => (
+            <PlaylistVideoCard
+              key={video.id}
+              video={video}
+              index={index}
+              autoPlay={autoPlay}
+            />
+          ))}
+        </div>
       </div>
     </motion.div>
   );
 };
-
 
 export default YouTubePlaylistGrid;
 // export { PlaylistVideoCard, useYouTubePlaylist };
