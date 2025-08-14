@@ -328,10 +328,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                               ].map((option) => (
                                 <label 
                                   key={option.value} 
-                                  className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                                  className="flex items-center px-3 hover:bg-gray-50 cursor-pointer"
                                   onClick={(e) => e.preventDefault()}
                                 >
-                                  <div onClick={() => handleInquiryTypeChange(option.value)} className="flex items-center w-full">
+                                  <div onClick={() => handleInquiryTypeChange(option.value)} className="flex items-center py-2 w-full">
                                     <input
                                       type="checkbox"
                                       checked={formData.inquiryType.includes(option.value)}
