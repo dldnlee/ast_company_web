@@ -35,7 +35,7 @@ export function PartnerChannelSection(){
             >
             {/* Header */}
             <div className="flex items-center justify-center mb-6">
-                <h2 className="text-4xl font-bold tracking-wider">PARTNER CHANNELS</h2>
+                <h2 className="text-center text-4xl font-bold tracking-wider">PARTNER CHANNELS</h2>
                 {/* You can remove these buttons if not needed */}
             </div>
 
