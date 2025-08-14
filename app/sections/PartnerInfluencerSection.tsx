@@ -33,7 +33,7 @@ export function PartnerInfluencerSection(): JSX.Element {
 
   return (
     <section className='flex flex-col items-center justify-center gap-10 pb-20 px-10'>
-      <h2 className="text-4xl font-bold text-white mb-4 text-center">OUR PARTNER INFLUENCERS</h2>
+      <h2 className="text-4xl font-bold text-white mb-4 text-center">PARTNER INFLUENCERS</h2>
       <Swiper
         initialSlide={3}
         loop={true}

@@ -34,7 +34,7 @@ export function PartnerChannelSection(){
             className="w-full max-w-6xl mx-auto text-white p-6 rounded-lg overflow-hidden"
             >
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-center mb-6">
                 <h2 className="text-4xl font-bold tracking-wider">PARTNER CHANNELS</h2>
                 {/* You can remove these buttons if not needed */}
             </div>

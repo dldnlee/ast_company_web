@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 interface FormData {
   channel: string;
-  inquiryType: string;
+  inquiryType: string[];
   title: string;
   contact: string;
   content: string;
@@ -20,13 +20,14 @@ interface ContactModalProps {
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencerId = '' }) => {
   const [formData, setFormData] = useState<FormData>({
     channel: influencerId,
-    inquiryType: '',
+    inquiryType: [],
     title: '',
     contact: '',
     content: ''
   });
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const backdropVariants: Variants = {
     hidden: { opacity: 0 },
@@ -118,9 +119,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
     if (!isOpen) {
       setShowSuccess(false);
       setLoading(false);
+      setIsDropdownOpen(false);
       setFormData({
         channel: influencerId,
-        inquiryType: '',
+        inquiryType: [],
         title: '',
         contact: '',
         content: ''
@@ -142,13 +144,46 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
     }));
   };
 
+  const handleInquiryTypeChange = (value: string): void => {
+    setFormData(prev => ({
+      ...prev,
+      inquiryType: prev.inquiryType.includes(value)
+        ? prev.inquiryType.filter(type => type !== value)
+        : [...prev.inquiryType, value]
+    }));
+  };
+
+  const toggleDropdown = (): void => {
+    if (!loading) {
+      setIsDropdownOpen(!isDropdownOpen);
+    }
+  };
+
+  const getSelectedLabels = (): string => {
+    const options = [
+      { value: 'advertisement', label: '광고 협의 (TVC, 전매체, 전속모델 등)' },
+      { value: 'youtube', label: '유튜브' },
+      { value: 'instagram', label: '인스타그램' },
+      { value: 'appearance', label: '출연 문의' },
+      { value: 'event', label: '행사 초청 문의' },
+      { value: 'new_campaign', label: '신규 캠페인 기획' },
+      { value: 'other', label: '기타 문의' }
+    ];
+    
+    const selectedOptions = options.filter(option => formData.inquiryType.includes(option.value));
+    
+    if (selectedOptions.length === 0) return '선택해주세요';
+    if (selectedOptions.length === 1) return selectedOptions[0].label;
+    return `${selectedOptions[0].label} 외 ${selectedOptions.length - 1}개`;
+  };
+
   const handleSubmit = async (): Promise<void> => {
     setLoading(true);
 
     // Prepare data for Google App Script
     const formDataObj = {
       inquiryChannel: formData.channel,
-      inquiryType: formData.inquiryType,
+      inquiryType: formData.inquiryType.join(', '),
       title: formData.title,
       contact: formData.contact,
       content: formData.content,
@@ -182,7 +217,6 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
       setLoading(false);
     }
   };
-
 
   return (
     <AnimatePresence>
@@ -244,25 +278,78 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, influencer
                       />
                     </div>
 
-                    {/* 문의 구분 */}
-                    <div>
+                    {/* 문의 구분 - Multi-select dropdown */}
+                    <div className="relative">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        문의 구분
+                        문의 구분 (복수 선택 가능)
                       </label>
-                      <select
-                        name="inquiryType"
-                        value={formData.inquiryType}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent appearance-none bg-white"
+                      
+                      {/* Dropdown trigger */}
+                      <button
+                        type="button"
+                        onClick={toggleDropdown}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white text-left flex items-center justify-between hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={loading}
                       >
-                        <option value="">선택해주세요</option>
-                        <option value="collaboration">광고 문의</option>
-                        <option value="appearance">출연 문의</option>
-                        <option value="event">행사 초청 문의</option>
-                        <option value="new_campaign">신규 켐페인 기획</option>
-                        <option value="other">기타</option>
-                      </select>
+                        <span className={`truncate ${formData.inquiryType.length === 0 ? 'text-gray-500' : 'text-gray-900'}`}>
+                          {getSelectedLabels()}
+                        </span>
+                        <motion.svg
+                          className="w-5 h-5 text-gray-400 ml-2 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </motion.svg>
+                      </button>
+
+                      {/* Dropdown content */}
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+                          >
+                            <div className="py-1">
+                              {[
+                                { value: 'advertisement', label: '광고 협의 (TVC, 전매체, 전속모델 등)' },
+                                { value: 'youtube', label: '유튜브' },
+                                { value: 'instagram', label: '인스타그램' },
+                                { value: 'appearance', label: '출연 문의' },
+                                { value: 'event', label: '행사 초청 문의' },
+                                { value: 'new_campaign', label: '신규 캠페인 기획' },
+                                { value: 'other', label: '기타 문의' }
+                              ].map((option) => (
+                                <label 
+                                  key={option.value} 
+                                  className="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                                  onClick={(e) => e.preventDefault()}
+                                >
+                                  <div onClick={() => handleInquiryTypeChange(option.value)} className="flex items-center w-full">
+                                    <input
+                                      type="checkbox"
+                                      checked={formData.inquiryType.includes(option.value)}
+                                      // onChange={() => handleInquiryTypeChange(option.value)}
+                                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded mr-3"
+                                      disabled={loading}
+                                    />
+                                    <span className="text-sm text-gray-700 select-none flex-1">
+                                      {option.label}
+                                    </span>
+
+                                  </div>
+                                </label>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* 제목 */}

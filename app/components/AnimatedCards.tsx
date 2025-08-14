@@ -98,7 +98,7 @@ const AnimatedCardGrid: React.FC<{ cards: CardData[] }> = ({ cards }) => {
 
   return (
     <motion.div 
-      className="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto"
+      className="grid grid-cols-1 md:grid-cols-3 max-w-6xl mx-auto place-items-center"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
