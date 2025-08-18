@@ -1,11 +1,11 @@
 
 export const channelNames =
 [
-  {
-    "channelName": "가비 걸 GABEE GIRL",
-    "src": "gabee.jpg",
-    "channelLink": "https://example.com/gebes"
-  },
+  // {
+  //   "channelName": "가비 걸 GABEE GIRL",
+  //   "src": "gabee.jpg",
+  //   "channelLink": "https://example.com/gebes"
+  // },
   {
     "channelName": "유난히빛이나 YUNA",
     "src": "yuna.jpg",
