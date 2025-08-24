@@ -168,7 +168,7 @@ const InfiniteScrollPartners = () => {
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-white mb-4">OUR CLIENTS</h2>
         <p className="text-xl text-center text-white/70">
-          AST와 함께하는 클라이언트 {brandData.length > 0 && `(${brandData.length}개)`}
+          AST와 함께하는 클라이언트
         </p>
         {error && (
           <p className="text-yellow-300 text-sm mt-2">
