@@ -111,9 +111,8 @@ const InfiniteScrollPartners = () => {
 
   // Helper function to get image URL with fallback
   const getImageUrl = (brand: Brand): string => {
-    // Priority: Supabase storage URL > static file path
-    if (brand.logo_url && brand.logo_url.includes('supabase.co')) {
-      return brand.logo_url;
+    if (brand.storage_path) {
+      return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/brand-logos/${brand.storage_path}`;
     }
     // Fallback to static path
     return `/brand_logos/${brand.logo_filename || brand.brand_name}.png`;
