@@ -117,7 +117,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     verification: {
-      google: '', // You'll add this from Google Search Console
+      google: 'OOZsV3QypXDEyET_6DkNjKKvdvGFahB1FhQ8KNNtQKw', // You'll add this from Google Search Console
       other: {
         'naver-site-verification': '', // You'll add this from Naver
       },
@@ -224,7 +224,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${poppins.variable} antialiased relative min-h-screen`}>
         <ScrollProgress />
-        <BackgroundBubbles />
+        {/* <BackgroundBubbles /> */}
         <main className="relative z-10">
           {children}
         </main>
