@@ -44,13 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
   }
   
   // Use database values or optimized fallbacks
-  const title = seoData?.site_title || "AST Company | 브랜드와 인플루언서를 연결하는 전문 에이전시";
+  const title = seoData?.site_title || "AST Company | 아스트 컴퍼니 – 광고, 콘텐츠, 행사 미디어 그룹";
   const description = seoData?.site_description || "한국 최고의 인플루언서 마케팅 에이전시 AST Company. 브랜드 홍보부터 인플루언서 파트너십까지, 콘텐츠 마케팅의 모든 것을 제공합니다. 서울 기반 전문 MCN 에이전시.";
   const keywords = seoData?.keywords || [
     "인플루언서 마케팅", "브랜드 홍보", "인플루언서 에이전시", "MCN 에이전시",
     "YouTube 마케팅", "인스타그램 마케팅", "브랜드 협업", "콘텐츠 마케팅",
     "인플루언서 파트너십", "크리에이터 매니지먼트", "서울 마케팅 에이전시",
-    "소셜미디어 마케팅", "브랜드 프로모션", "스폰서십"
+    "소셜미디어 마케팅", "브랜드 프로모션", "스폰서십", "쿄카 섭외", "오죠갱 섭외", "우와 섭외", "아스트"
   ];
   const canonicalUrl = seoData?.canonical_url || "https://astcompany.co.kr";
   const language = seoData?.language || "ko-KR";
