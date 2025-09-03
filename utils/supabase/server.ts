@@ -15,17 +15,9 @@ export const createClient = async () => {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options);
-            });
-          } catch (error) {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
-            console.warn('Could not set cookies in Server Component:', error);
-          }
+        setAll(_cookiesToSet) {
+          // In Server Components, cookies can only be read, not modified
+          // This is a no-op for Server Components and only works in Server Actions/Route Handlers
         },
       },
     }
