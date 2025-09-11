@@ -150,9 +150,7 @@ export function PartnerInfluencerSection(): JSX.Element {
         {influencers.map((item: InfluencerDisplayData) => {
           // Construct image URL with fallback
           const imageUrl = item.profile_image 
-            ? (item.profile_image.startsWith('http') 
-                ? item.profile_image 
-                : `/partner_influencers/${item.profile_image}`)
+            ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${item.profile_image}`
             : '/partner_influencers/placeholder.png';
           
           return (
