@@ -5,29 +5,40 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { motion } from "motion/react"
 
+interface ProposalItem {
+  id: string;
+  influencer_id: string;
+  platform: string;
+  category: string;
+  count: number;
+  unit_price: number;
+  total_price: number;
+  memo: string;
+}
+
 interface Influencer {
   id: string;
   kr_name: string;
   en_name: string | null;
   profile_image: string;
-  offer_price: number;
   gender: string | null;
   instagram_id: string | null;
   followers_count: string | null;
   followers_count_numeric: number;
   age: string | null;
   description: string | null;
+  proposal_items: ProposalItem[];
 }
 
 interface ProposalData {
   id: string;
-  influencer_list: string[];
-  platform: string;
-  category: string;
   author: string;
   receiver: string;
   created_at: string;
   expire_at: string;
+  total_amount: number;
+  currency: string;
+  status: string;
 }
 
 export default function ProposalPage() {
@@ -63,36 +74,68 @@ export default function ProposalPage() {
     return age;
   };
 
-  async function fetchInfluencerDetails(influencerIds: string[], platform: string, category: string) {
+  async function fetchProposalDetails(proposalId: string) {
     try {
-      const { data: influencerData, error } = await supabase
-        .from('influencers')
-        .select('id, kr_name, en_name, profile_image, gender, instagram_id, followers_count, followers_count_numeric, age, description')
-        .in('id', influencerIds);
+      // Fetch proposal items with influencer details
+      const { data: proposalItems, error: itemsError } = await supabase
+        .from('proposal_items')
+        .select(`
+          id,
+          influencer_id,
+          platform,
+          category,
+          count,
+          unit_price,
+          total_price,
+          memo,
+          influencers(
+            id,
+            kr_name,
+            en_name,
+            profile_image,
+            gender,
+            instagram_id,
+            followers_count,
+            followers_count_numeric,
+            age,
+            description
+          )
+        `)
+        .eq('proposal_id', proposalId);
 
-      if (error) throw error;
+      if (itemsError) throw itemsError;
 
-      if (influencerData) {
-        const influencersWithPricing = await Promise.all(
-          influencerData.map(async (influencer) => {
-            const { data: pricing } = await supabase
-              .from('influencer_pricing')
-              .select('offer_price')
-              .eq('influencer_id', influencer.id)
-              .eq('platform', platform)
-              .eq('category', category)
-              .single();
+      if (proposalItems) {
+        // Group proposal items by influencer
+        const influencerMap = new Map<string, Influencer>();
 
-            return {
-              ...influencer,
-              offer_price: pricing?.offer_price || 0
-            };
-          })
-        );
-        setInfluencers(influencersWithPricing);
+        proposalItems.forEach((item: any) => {
+          const influencerId = item.influencer_id;
+          const influencerData = item.influencers;
+
+          if (!influencerMap.has(influencerId)) {
+            influencerMap.set(influencerId, {
+              ...influencerData,
+              proposal_items: []
+            });
+          }
+
+          influencerMap.get(influencerId)!.proposal_items.push({
+            id: item.id,
+            influencer_id: item.influencer_id,
+            platform: item.platform,
+            category: item.category,
+            count: item.count,
+            unit_price: item.unit_price,
+            total_price: item.total_price,
+            memo: item.memo
+          });
+        });
+
+        setInfluencers(Array.from(influencerMap.values()));
       }
     } catch (error) {
-      console.error("Error fetching influencer details:", error);
+      console.error("Error fetching proposal details:", error);
     }
   }
 
@@ -106,7 +149,7 @@ export default function ProposalPage() {
 
         const { data: proposals, error } = await supabase
           .from('proposals')
-          .select('id, influencer_list, platform, category, author, receiver, created_at, expire_at')
+          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status')
           .eq('id', slug);
 
         console.log('Query response:', { proposals, error })
@@ -119,10 +162,7 @@ export default function ProposalPage() {
 
         if (proposal) {
           setProposalData(proposal);
-
-          if (proposal.influencer_list && proposal.influencer_list.length > 0) {
-            await fetchInfluencerDetails(proposal.influencer_list, proposal.platform, proposal.category);
-          }
+          await fetchProposalDetails(proposal.id);
         }
       } catch (error) {
         console.error("Error fetching proposal data:", error);
@@ -228,12 +268,16 @@ export default function ProposalPage() {
                         {calculateAge(selectedInfluencer.age)}세
                       </span>
                     )}
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {proposalData?.platform}
-                    </span>
-                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {proposalData?.category}
-                    </span>
+                    {selectedInfluencer.proposal_items.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {item.platform}
+                        </span>
+                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {item.category}
+                        </span>
+                      </div>
+                    ))}
                   </div>
 
                   {/* Description */}
@@ -251,8 +295,38 @@ export default function ProposalPage() {
                     <p className="text-sm text-gray-600">팔로워</p>
                   </div>
                   <div className="bg-blue-50 rounded-xl p-4 text-center">
-                    <p className="text-2xl font-bold text-blue-600 mb-1">₩{selectedInfluencer.offer_price.toLocaleString()}</p>
-                    <p className="text-sm text-gray-600">제안 가격</p>
+                    <p className="text-2xl font-bold text-blue-600 mb-1">
+                      ₩{selectedInfluencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
+                    </p>
+                    <p className="text-sm text-gray-600">총 제안 가격</p>
+                  </div>
+                </div>
+
+                {/* Proposal Items Details */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-white mb-3">제안 항목</h3>
+                  <div className="space-y-3">
+                    {selectedInfluencer.proposal_items.map((item, index) => (
+                      <div key={index} className="bg-gray-800 rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex gap-2">
+                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                              {item.platform}
+                            </span>
+                            <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
+                              {item.category}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-white font-semibold">₩{item.total_price.toLocaleString()}</p>
+                            <p className="text-gray-400 text-sm">{item.count}개 × ₩{item.unit_price.toLocaleString()}</p>
+                          </div>
+                        </div>
+                        {item.memo && (
+                          <p className="text-gray-300 text-sm mt-2">{item.memo}</p>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -348,8 +422,20 @@ export default function ProposalPage() {
                         </div>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-semibold text-blue-400">
-                            ₩{influencer.offer_price.toLocaleString()}
+                            ₩{influencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
                           </p>
+                          <div className="flex gap-1">
+                            {influencer.proposal_items.slice(0, 2).map((item, index) => (
+                              <span key={index} className="bg-blue-500 text-white px-1 py-0.5 rounded text-xs">
+                                {item.platform}
+                              </span>
+                            ))}
+                            {influencer.proposal_items.length > 2 && (
+                              <span className="bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
+                                +{influencer.proposal_items.length - 2}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -362,16 +448,16 @@ export default function ProposalPage() {
               </p>
             )}
 
-            {/* {influencers.length > 0 && (
+            {influencers.length > 0 && (
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold text-gray-900">총 예상 비용:</span>
-                  <span className="text-2xl font-bold text-blue-600">
-                    ₩{influencers.reduce((total, inf) => total + inf.offer_price, 0).toLocaleString()}
+                  <span className="text-lg font-semibold text-white">총 예상 비용:</span>
+                  <span className="text-2xl font-bold text-blue-400">
+                    ₩{proposalData?.total_amount.toLocaleString() || influencers.reduce((total, inf) => total + inf.proposal_items.reduce((itemTotal, item) => itemTotal + item.total_price, 0), 0).toLocaleString()}
                   </span>
                 </div>
               </div>
-            )} */}
+            )}
           </div>
         </div>
         </div>
