@@ -5,29 +5,40 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { motion } from "motion/react"
 
+interface ProposalItem {
+  id: string;
+  influencer_id: string;
+  platform: string;
+  category: string;
+  count: number;
+  unit_price: number;
+  total_price: number;
+  memo: string;
+}
+
 interface Influencer {
   id: string;
   kr_name: string;
   en_name: string | null;
   profile_image: string;
-  offer_price: number;
   gender: string | null;
   instagram_id: string | null;
   followers_count: string | null;
   followers_count_numeric: number;
   age: string | null;
   description: string | null;
+  proposal_items: ProposalItem[];
 }
 
 interface ProposalData {
   id: string;
-  influencer_list: string[];
-  platform: string;
-  category: string;
   author: string;
   receiver: string;
   created_at: string;
   expire_at: string;
+  total_amount: number;
+  currency: string;
+  status: string;
 }
 
 export default function ProposalPage() {
@@ -40,6 +51,7 @@ export default function ProposalPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
 
   const openModal = (influencer: Influencer) => {
     setSelectedInfluencer(influencer);
@@ -63,36 +75,74 @@ export default function ProposalPage() {
     return age;
   };
 
-  async function fetchInfluencerDetails(influencerIds: string[], platform: string, category: string) {
+  const checkIfExpired = (expireDate: string) => {
+    const now = new Date();
+    const expire = new Date(expireDate);
+    return now > expire;
+  };
+
+  async function fetchProposalDetails(proposalId: string) {
     try {
-      const { data: influencerData, error } = await supabase
-        .from('influencers')
-        .select('id, kr_name, en_name, profile_image, gender, instagram_id, followers_count, followers_count_numeric, age, description')
-        .in('id', influencerIds);
+      // Fetch proposal items with influencer details
+      const { data: proposalItems, error: itemsError } = await supabase
+        .from('proposal_items')
+        .select(`
+          id,
+          influencer_id,
+          platform,
+          category,
+          count,
+          unit_price,
+          total_price,
+          memo,
+          influencers(
+            id,
+            kr_name,
+            en_name,
+            profile_image,
+            gender,
+            instagram_id,
+            followers_count,
+            followers_count_numeric,
+            age,
+            description
+          )
+        `)
+        .eq('proposal_id', proposalId);
 
-      if (error) throw error;
+      if (itemsError) throw itemsError;
 
-      if (influencerData) {
-        const influencersWithPricing = await Promise.all(
-          influencerData.map(async (influencer) => {
-            const { data: pricing } = await supabase
-              .from('influencer_pricing')
-              .select('offer_price')
-              .eq('influencer_id', influencer.id)
-              .eq('platform', platform)
-              .eq('category', category)
-              .single();
+      if (proposalItems) {
+        // Group proposal items by influencer
+        const influencerMap = new Map<string, Influencer>();
 
-            return {
-              ...influencer,
-              offer_price: pricing?.offer_price || 0
-            };
-          })
-        );
-        setInfluencers(influencersWithPricing);
+        proposalItems.forEach((item: any) => {
+          const influencerId = item.influencer_id;
+          const influencerData = item.influencers;
+
+          if (!influencerMap.has(influencerId)) {
+            influencerMap.set(influencerId, {
+              ...influencerData,
+              proposal_items: []
+            });
+          }
+
+          influencerMap.get(influencerId)!.proposal_items.push({
+            id: item.id,
+            influencer_id: item.influencer_id,
+            platform: item.platform,
+            category: item.category,
+            count: item.count,
+            unit_price: item.unit_price,
+            total_price: item.total_price,
+            memo: item.memo
+          });
+        });
+
+        setInfluencers(Array.from(influencerMap.values()));
       }
     } catch (error) {
-      console.error("Error fetching influencer details:", error);
+      console.error("Error fetching proposal details:", error);
     }
   }
 
@@ -106,7 +156,7 @@ export default function ProposalPage() {
 
         const { data: proposals, error } = await supabase
           .from('proposals')
-          .select('id, influencer_list, platform, category, author, receiver, created_at, expire_at')
+          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status')
           .eq('id', slug);
 
         console.log('Query response:', { proposals, error })
@@ -119,10 +169,8 @@ export default function ProposalPage() {
 
         if (proposal) {
           setProposalData(proposal);
-
-          if (proposal.influencer_list && proposal.influencer_list.length > 0) {
-            await fetchInfluencerDetails(proposal.influencer_list, proposal.platform, proposal.category);
-          }
+          setIsExpired(checkIfExpired(proposal.expire_at));
+          await fetchProposalDetails(proposal.id);
         }
       } catch (error) {
         console.error("Error fetching proposal data:", error);
@@ -195,7 +243,7 @@ export default function ProposalPage() {
 
               {/* Left side - Profile Image */}
               <div className="flex-1 flex items-center justify-center">
-                <div className="h-[500px] rounded-2xl overflow-hidden shadow-lg">
+                <div className="h-[600px] rounded-2xl overflow-hidden shadow-lg">
                   {selectedInfluencer.profile_image ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${selectedInfluencer.profile_image}`}
@@ -228,12 +276,16 @@ export default function ProposalPage() {
                         {calculateAge(selectedInfluencer.age)}세
                       </span>
                     )}
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {proposalData?.platform}
-                    </span>
-                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {proposalData?.category}
-                    </span>
+                    {selectedInfluencer.proposal_items.map((item, index) => (
+                      <div key={index} className="flex gap-2">
+                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {item.platform}
+                        </span>
+                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {item.category}
+                        </span>
+                      </div>
+                    ))}
                   </div>
 
                   {/* Description */}
@@ -251,8 +303,38 @@ export default function ProposalPage() {
                     <p className="text-sm text-gray-600">팔로워</p>
                   </div>
                   <div className="bg-blue-50 rounded-xl p-4 text-center">
-                    <p className="text-2xl font-bold text-blue-600 mb-1">₩{selectedInfluencer.offer_price.toLocaleString()}</p>
-                    <p className="text-sm text-gray-600">제안 가격</p>
+                    <p className="text-2xl font-bold text-blue-600 mb-1">
+                      ₩{selectedInfluencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
+                    </p>
+                    <p className="text-sm text-gray-600">총 제안 가격</p>
+                  </div>
+                </div>
+
+                {/* Proposal Items Details */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-white mb-3">제안 항목</h3>
+                  <div className="space-y-3">
+                    {selectedInfluencer.proposal_items.map((item, index) => (
+                      <div key={index} className="bg-gray-800 rounded-lg p-4">
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex gap-2">
+                            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                              {item.platform}
+                            </span>
+                            <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
+                              {item.category}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-white font-semibold">₩{item.total_price.toLocaleString()}</p>
+                            <p className="text-gray-400 text-sm">{item.count}개 × ₩{item.unit_price.toLocaleString()}</p>
+                          </div>
+                        </div>
+                        {item.memo && (
+                          <p className="text-gray-300 text-sm mt-2">{item.memo}</p>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -291,6 +373,20 @@ export default function ProposalPage() {
       >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white bg-white/20 rounded-xl">
         <div className="p-6">
+          {/* Expired Banner */}
+          {isExpired && (
+            <div className="mb-6 bg-red-500/20 border border-red-500 rounded-lg p-4">
+              <div className="flex items-center gap-3">
+                <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+                <div>
+                  <h3 className="text-lg font-semibold text-red-300">제안서 만료</h3>
+                  <p className="text-red-200">이 제안서는 만료되었습니다. ({new Date(proposalData.expire_at).toLocaleDateString('ko-KR')})</p>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="border-b border-gray-200 pb-6 mb-6">
             {/* <h1 className="text-3xl font-bold text-gray-900 mb-2">
               제안서 #{proposalData.id}
@@ -300,7 +396,10 @@ export default function ProposalPage() {
               <span><strong>카테고리:</strong> {proposalData.category}</span> */}
               <span><strong>작성자 :</strong> {proposalData.author}</span>
               <span><strong>수신자 :</strong> {proposalData.receiver}</span>
-              <span><strong>만료일 :</strong> {new Date(proposalData.expire_at).toLocaleDateString('ko-KR')}</span>
+              <span className={isExpired ? 'text-red-300' : ''}>
+                <strong>만료일 :</strong> {new Date(proposalData.expire_at).toLocaleDateString('ko-KR')}
+                {isExpired && <span className="ml-2 text-red-400 font-semibold">(만료됨)</span>}
+              </span>
             </div>
           </div>
 
@@ -348,8 +447,20 @@ export default function ProposalPage() {
                         </div>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-semibold text-blue-400">
-                            ₩{influencer.offer_price.toLocaleString()}
+                            ₩{influencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
                           </p>
+                          <div className="flex gap-1">
+                            {/* {influencer.proposal_items.slice(0, 2).map((item, index) => (
+                              <span key={index} className="bg-blue-500 text-white px-1 py-0.5 rounded text-xs">
+                                {item.platform}
+                              </span>
+                            ))} */}
+                            {influencer.proposal_items.length > 2 && (
+                              <span className="bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
+                                +{influencer.proposal_items.length - 2}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -362,16 +473,16 @@ export default function ProposalPage() {
               </p>
             )}
 
-            {/* {influencers.length > 0 && (
+            {influencers.length > 0 && (
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold text-gray-900">총 예상 비용:</span>
-                  <span className="text-2xl font-bold text-blue-600">
-                    ₩{influencers.reduce((total, inf) => total + inf.offer_price, 0).toLocaleString()}
+                  <span className="text-lg font-semibold text-white">총 예상 비용:</span>
+                  <span className="text-2xl font-bold text-blue-400">
+                    ₩{proposalData?.total_amount.toLocaleString() || influencers.reduce((total, inf) => total + inf.proposal_items.reduce((itemTotal, item) => itemTotal + item.total_price, 0), 0).toLocaleString()}
                   </span>
                 </div>
               </div>
-            )} */}
+            )}
           </div>
         </div>
         </div>
