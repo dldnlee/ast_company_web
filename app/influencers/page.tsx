@@ -43,7 +43,7 @@ export default function InfluencersPage() {
       try {
         setLoading(true);
         const { data, error } = await supabase
-          .from('partner_influencers')
+          .from('influencers')
           .select('*')
           .eq('is_active', true)
           .eq('is_visible', true)
@@ -57,10 +57,10 @@ export default function InfluencersPage() {
 
         const displayData: InfluencerDisplayData[] = data?.map(influencer => ({
           id: influencer.id,
-          influencer_name: influencer.influencer_name,
-          social_id: influencer.social_id,
-          followers_count: influencer.followers_count,
-          profile_image: influencer.profile_image,
+          influencer_name: influencer.kr_name,
+          social_id: influencer.social_id || influencer.instagram_id || '',
+          followers_count: influencer.followers_count || '',
+          profile_image: influencer.profile_image || '',
           description: influencer.description,
           instagram_url: influencer.instagram_url,
           youtube_url: influencer.youtube_url,
@@ -191,10 +191,10 @@ export default function InfluencersPage() {
       <div className="grid gap-3 sm:gap-8 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-7xl mx-auto">
         {influencers.map((inf) => {
           // Construct image URL with fallback
-          const imageUrl = inf.profile_image 
-            ? (inf.profile_image.startsWith('http') 
-                ? inf.profile_image 
-                : `/partner_influencers/${inf.profile_image}`)
+          const imageUrl = inf.profile_image
+            ? (inf.profile_image.startsWith('http')
+                ? inf.profile_image
+                : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${inf.profile_image}`)
             : '/partner_influencers/placeholder.png';
             
           return (
