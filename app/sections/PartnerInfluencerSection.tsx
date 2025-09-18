@@ -44,7 +44,7 @@ export function PartnerInfluencerSection(): JSX.Element {
       try {
         setLoading(true);
         const { data, error } = await supabase
-          .from('partner_influencers')
+          .from('influencers')
           .select('*')
           .eq('is_active', true)
           .eq('is_visible', true)
@@ -58,10 +58,10 @@ export function PartnerInfluencerSection(): JSX.Element {
 
         const displayData: InfluencerDisplayData[] = data?.map(influencer => ({
           id: influencer.id,
-          influencer_name: influencer.influencer_name,
-          social_id: influencer.social_id,
-          followers_count: influencer.followers_count,
-          profile_image: influencer.profile_image,
+          influencer_name: influencer.kr_name,
+          social_id: influencer.social_id || influencer.instagram_id || '',
+          followers_count: influencer.followers_count || '',
+          profile_image: influencer.profile_image || '',
           description: influencer.description,
           instagram_url: influencer.instagram_url,
           youtube_url: influencer.youtube_url,
@@ -149,8 +149,10 @@ export function PartnerInfluencerSection(): JSX.Element {
       >
         {influencers.map((item: InfluencerDisplayData) => {
           // Construct image URL with fallback
-          const imageUrl = item.profile_image 
-            ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${item.profile_image}`
+          const imageUrl = item.profile_image
+            ? (item.profile_image.startsWith('http')
+                ? item.profile_image
+                : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${item.profile_image}`)
             : '/partner_influencers/placeholder.png';
           
           return (
