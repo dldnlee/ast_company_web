@@ -235,7 +235,7 @@ export default function ProposalPage() {
 
               {/* Left side - Profile Image */}
               <div className="flex-1 flex items-center justify-center">
-                <div className="h-[500px] rounded-2xl overflow-hidden shadow-lg">
+                <div className="h-[600px] rounded-2xl overflow-hidden shadow-lg">
                   {selectedInfluencer.profile_image ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${selectedInfluencer.profile_image}`}
@@ -425,11 +425,11 @@ export default function ProposalPage() {
                             ₩{influencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
                           </p>
                           <div className="flex gap-1">
-                            {influencer.proposal_items.slice(0, 2).map((item, index) => (
+                            {/* {influencer.proposal_items.slice(0, 2).map((item, index) => (
                               <span key={index} className="bg-blue-500 text-white px-1 py-0.5 rounded text-xs">
                                 {item.platform}
                               </span>
-                            ))}
+                            ))} */}
                             {influencer.proposal_items.length > 2 && (
                               <span className="bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
                                 +{influencer.proposal_items.length - 2}
