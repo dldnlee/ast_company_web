@@ -126,8 +126,6 @@ const ContactUsCard = () => {
         />
         <ul className="space-y-1 text-center md:text-left flex flex-col items-center md:items-start text-sm md:text-base">
           <li>contact@astcompany.co.kr</li>
-          <li>010-3044-2131</li>
-          <li>서울특별시 서초구 매헌로 16, 1313호</li>
         </ul>
       </motion.div>
       <ContactUsModal 
