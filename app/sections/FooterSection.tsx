@@ -20,16 +20,23 @@ export function FooterSection() {
             }
         };
   return (
-    <footer className="bg-gray-900 py-12 text-center text-gray-400">
-      {/* Logo */}
-      <img
-        src="company_logos/ASTCompanyLine.png"
-        alt="AST Logo"
-        className="h-10 mx-auto mb-4"
-      />
-
-      {/* Tagline */}
-      <p className="mb-6">AST Media Group</p>
+    <footer className="bg-gray-900 px-10 py-12 text-center text-gray-400 flex justify-between items-start">
+      <div className="text-start text-sm">
+        {/* Logo */}
+        <img
+          src="company_logos/ASTCompanyLine.png"
+          alt="AST Logo"
+          className="h-10 mb-4"
+        />
+        {/* Tagline */}
+        <p className="text-start">AST Media Group</p>
+        <p className="text-start">
+          주식회사 아스트컴퍼니 / 사업자등록번호 710-81-04121 / 대표이사 조현욱 
+          서울특별시 마포구 성지3길 55 3층(합정동)
+        </p>
+        {/* Copyright */}
+        <p className="text-sm">COPYRIGHT© ASTCOMPANY. ALL RIGHTS RESERVED.</p>
+      </div>
 
       {/* Navigation */}
       <nav className="hidden md:flex items-center justify-center gap-6 text-sm font-medium mb-6">
@@ -45,24 +52,8 @@ export function FooterSection() {
         ))}
       </nav>
 
-      {/* Social Icons */}
-      {/* <div className="flex justify-center gap-6 text-xl mb-8">
-        <a
-          href="https://instagram.com/ast__company"
-          className="hover:text-purple-400 transition-colors"
-        >
-          <FaInstagram />
-        </a>
-        <a href="#" className="hover:text-purple-400 transition-colors">
-          <FaYoutube />
-        </a>
-        <a href="#" className="hover:text-purple-400 transition-colors">
-          <FaLinkedin />
-        </a>
-      </div> */}
 
-      {/* Copyright */}
-      <p className="text-sm">© 2024 ASTCOMPANY. All rights reserved.</p>
+
     </footer>
   );
 }
