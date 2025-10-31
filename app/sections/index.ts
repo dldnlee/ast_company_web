@@ -6,5 +6,6 @@ import { PortfolioSection } from "./PortfolioSection";
 import { PartnerChannelSection } from "./PartnerChannelSection";
 import { ContactSection } from "./ContactSection";
 import { FooterSection } from "./FooterSection"; // Assuming you have a FooterSection component
+import { OurChannelSection } from "./OurChannelSection";
 
-export { ContactSection, SectionOne, SectionTwo, SectionThree, PartnerInfluencerSection, PortfolioSection, PartnerChannelSection, FooterSection };
+export { ContactSection, SectionOne, SectionTwo, SectionThree, PartnerInfluencerSection, PortfolioSection, PartnerChannelSection, FooterSection, OurChannelSection };

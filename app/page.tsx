@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 import TopNavigationBar from './components/TopNavigationBar';
-import { ContactSection, PartnerChannelSection, PortfolioSection, PartnerInfluencerSection, SectionOne, SectionThree, SectionTwo, FooterSection } from './sections';
+import { ContactSection, PartnerChannelSection, PortfolioSection, PartnerInfluencerSection, SectionOne, SectionThree, SectionTwo, FooterSection, OurChannelSection } from './sections';
 
 export default function HomePage() {
   return (
@@ -23,6 +23,7 @@ export default function HomePage() {
       {/* Partner Channel Section - treating as "Clients" */}
       <section id="clients">
         <SectionThree />
+        <OurChannelSection />
         <PartnerChannelSection />
         <PartnerInfluencerSection />
       </section>
