@@ -59,7 +59,7 @@ export function OurChannelSection() {
                             &lt;우와 UWA KITADERA&gt;
                         </h3>
 
-                        <div className="space-y-4 text-lg leading-relaxed">
+                        <div className="space-y-4 text-sm md:text-lg leading-relaxed">
                             <p>
                                 우와(UWA)의 일상부터 뷰티, 패션,<br/>
                                 그리고 국내 방송 출연까지!<br/>
@@ -67,7 +67,7 @@ export function OurChannelSection() {
                             </p>
 
                             <p>
-                                멋진 모습터터 사랑스러운 매력까지,<br/>
+                                멋진 모습부터 사랑스러운 매력까지,<br/>
                                 지금 바로 우와의 다채로운 이야기를 만나보세요!
                             </p>
                         </div>
