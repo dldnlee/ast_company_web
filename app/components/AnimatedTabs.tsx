@@ -88,7 +88,7 @@ export const AnimatedTabs: React.FC<AnimatedTabsProps> = ({
       content: <BrandFilms maxResults={maxResults} /> 
     },
     { 
-      label: "숏폼", 
+      label: "팝업/행사", 
       content: <ShortForms maxResults={maxResults} /> 
     }
   ];
