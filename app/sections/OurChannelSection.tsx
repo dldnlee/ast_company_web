@@ -97,7 +97,7 @@ export function OurChannelSection() {
                             </p>
 
                             <p>
-                                댄서 유메키의 비하인드와 일상 이야기를 만나보세요! <br/>
+                                댄서 유메키의 비하인드와 일상<br/>
                                 일상 이야기를 만나보세요!
                             </p>
                         </div>
