@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 import YouTubePlaylistGrid from "./YoutubePlaylistGrid";
+import PortfolioGrid from "./PortfolioGrid";
 
 interface TabProps {
   maxResults? : number;
@@ -43,10 +44,8 @@ const BrandedFilms: React.FC<TabProps> = ({maxResults}) => (
 
 const ShortForms: React.FC<TabProps> = ({maxResults}) => (
   <div className="space-y-4">
-    <YouTubePlaylistGrid
-    playlistId="PLMyrXvS6JvAZ_6RNhbn_Xa17u-GEnDF63"
-    apiKey={process.env.NEXT_PUBLIC_YOUTUBE_API_KEY!}
-    maxResults={maxResults}
+    <PortfolioGrid
+      maxResults={maxResults}
     />
   </div>
 );
