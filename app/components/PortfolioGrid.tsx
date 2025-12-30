@@ -12,6 +12,7 @@ interface Portfolio {
   storage_path: string | null;
   link_url: string | null;
   display_order: number;
+  image_position: string | null;
 }
 
 interface PortfolioGridProps {
@@ -103,13 +104,16 @@ const PortfolioCard: React.FC<{
       }}
     >
       {/* Image Container */}
-      <div className="relative aspect-video overflow-hidden bg-gray-100">
+      <div className="relative aspect-4/5 overflow-hidden bg-gray-100">
         {imageUrl && !imageError ? (
           <>
             <img
               src={imageUrl}
               alt={portfolio.title}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              style={{
+                objectPosition: portfolio.image_position || 'center'
+              }}
               onError={() => {
                 console.error('Image load error for:', portfolio.title, imageUrl);
                 setImageError(true);
@@ -128,7 +132,7 @@ const PortfolioCard: React.FC<{
       </div>
 
       {/* Portfolio Info */}
-      <div className="p-2 sm:p-3 lg:p-4">
+      <div className="p-2 sm:p-3 lg:p-4 h-22 truncate">
         <h3 className="text-black font-semibold text-sm sm:text-base lg:text-lg mb-2 line-clamp-2 group-hover:text-purple-600 transition-colors leading-tight">
           {portfolio.title}
         </h3>
@@ -234,10 +238,10 @@ const PortfolioGrid: React.FC<PortfolioGridProps> = ({
           grid-cols-2
           xs:grid-cols-2
           sm:grid-cols-2
-          md:grid-cols-3
-          lg:grid-cols-3
-          xl:grid-cols-3
-          2xl:grid-cols-3
+          md:grid-cols-4
+          lg:grid-cols-4
+          xl:grid-cols-4
+          2xl:grid-cols-4
           gap-3
           sm:gap-4
           md:gap-5
