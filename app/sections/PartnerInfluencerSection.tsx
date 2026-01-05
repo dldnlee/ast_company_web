@@ -44,7 +44,7 @@ export function PartnerInfluencerSection(): JSX.Element {
       try {
         setLoading(true);
         const { data, error } = await supabase
-          .from('influencers')
+          .from('partner_influencers')
           .select('*')
           .eq('is_active', true)
           .eq('is_visible', true)
