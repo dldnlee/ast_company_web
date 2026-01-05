@@ -40,6 +40,7 @@ interface ProposalData {
   total_amount: number;
   currency: string;
   status: string;
+  show_total_amount: boolean;
 }
 
 const platformLabels: { [key: string]: string } = {
@@ -249,7 +250,7 @@ export default function ProposalPage() {
 
         const { data: proposals, error } = await supabase
           .from('proposals')
-          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status')
+          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status, show_total_amount')
           .eq('id', slug);
 
         console.log('Query response:', { proposals, error })
@@ -453,14 +454,14 @@ export default function ProposalPage() {
                 </div>
 
                 {/* Stats Cards */}
-                <div className="mb-6">
+                {proposalData.show_total_amount && (<div className="mb-6">
                   <div className="bg-white p-4 text-center">
                   <p className="text-sm text-gray-600">총 제안 가격</p>
                     <p className="text-2xl font-bold text-black mb-1">
                       ₩{selectedInfluencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
                     </p>
                   </div>
-                </div>
+                </div>)}
               </div>
             </div>
           </motion.div>
@@ -540,12 +541,12 @@ export default function ProposalPage() {
                       {/* Content overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-2 text-white">
                         <div className="flex items-center justify-between">
-                          <h3 className="font-semibold text-lg leading-tight truncate">{influencer.kr_name}</h3>
+                          <h3 className="font-semibold text-sm leading-tight truncate">{influencer.kr_name}</h3>
                         </div>
                         <div className="flex items-center justify-between">
-                          <p className="text-sm font-semibold text-white">
+                          {proposalData.show_total_amount && (<p className="text-xs font-semibold text-white">
                             ₩{influencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
-                          </p>
+                          </p>)}
                           <div className="flex gap-1">
                             {influencer.proposal_items.length > 2 && (
                               <span className="bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
@@ -565,7 +566,7 @@ export default function ProposalPage() {
               </p>
             )}
 
-            {influencers.length > 0 && (
+            {influencers.length > 0 && proposalData.show_total_amount && (
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold text-white">총 예상 비용:</span>
