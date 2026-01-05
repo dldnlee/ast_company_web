@@ -43,7 +43,7 @@ export default function InfluencersPage() {
       try {
         setLoading(true);
         const { data, error } = await supabase
-          .from('influencers')
+          .from('partner_influencers')
           .select('*')
           .eq('is_active', true)
           .eq('is_visible', true)
@@ -57,8 +57,8 @@ export default function InfluencersPage() {
 
         const displayData: InfluencerDisplayData[] = data?.map(influencer => ({
           id: influencer.id,
-          influencer_name: influencer.kr_name,
-          social_id: influencer.social_id || influencer.instagram_id || '',
+          influencer_name: influencer.influencer_name,
+          social_id: influencer.social_id || '',
           followers_count: influencer.followers_count || '',
           profile_image: influencer.profile_image || '',
           description: influencer.description,
