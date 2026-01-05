@@ -341,18 +341,21 @@ export default function ProposalPage() {
 
       {/* Modal */}
       {isModalOpen && selectedInfluencer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-md p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-black rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+            className="bg-white/10 backdrop-blur-xl rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-white/20 shadow-2xl"
+            style={{
+              backgroundImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+            }}
           >
             <div className="relative flex h-full">
               {/* Close button */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-10 w-8 h-8 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-70 transition-colors"
+                className="absolute top-4 right-4 z-10 w-8 h-8 bg-white/20 bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-70 transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -473,9 +476,14 @@ export default function ProposalPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen py-8"
+        className="min-h-screen py-8 flex items-center justify-center"
       >
-      <div className="max-w-4xl mx-auto px-4 text-white bg-black/60 rounded-xl">
+      <div
+        className="max-w-4xl mx-auto px-4 text-white bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-2xl"
+        style={{
+          backgroundImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+        }}
+      >
         <div className="p-6">
           {/* Expired Banner */}
           {isExpired && (
