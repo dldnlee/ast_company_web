@@ -42,43 +42,30 @@ interface ProposalData {
   status: string;
 }
 
-// Platform and category configurations
-const platformConfig = {
-  youtube: {
-    label: 'YouTube',
-    color: 'red',
-    categories: ['community', 'exposure_ppl', 'functional_ppl', 'branded', 'shorts', 'fixed_comment']
-  },
-  instagram: {
-    label: 'Instagram',
-    color: 'pink',
-    categories: ['picture', 'reels', 'story']
-  },
-  broadcast: {
-    label: 'Broadcast',
-    color: 'purple',
-    categories: ['broadcast', 'radio', 'shown_radio', 'homeshopping', 'live_commerce', 'youtube', 'offline_convert', 'popup_event', 'brand_model', 'voice_model', 'brand_film']
-  }
-} as const
-
 const platformLabels: { [key: string]: string } = {
   youtube: '유튜브',
   instagram: '인스타그램',
   broadcast: '방송'
 }
 
-const categoryLabels: { [key: string]: string } = {
+export const categoryLabels: { [key: string]: string } = {
   // YouTube
   community: '커뮤니티',
   exposure_ppl: '단순노출PPL',
-  functional_ppl: 'PPL',
-  branded: 'BDC',
+  functional_ppl: '기능성 PPL',
+  branded: '브랜드형',
   shorts: '숏폼',
   fixed_comment: '고정 댓글',
+  yt_second_one_month: '2차 활용 (1개월)',
+  yt_second_three_month: '2차 활용 (3개월)',
+  yt_general: '기타',
   // Instagram
   picture: '피드 포스트',
   reels: '릴스',
   story: '스토리',
+  insta_second_one_month: '2차 활용 (1개월)',
+  insta_second_three_month: '2차 활용 (3개월)',
+  insta_general: '기타',
   // Broadcast
   broadcast: 'TV 방송',
   radio: '라디오',
@@ -90,7 +77,10 @@ const categoryLabels: { [key: string]: string } = {
   popup_event: '팝업 이벤트',
   brand_model: '브랜드 모델',
   voice_model: '음성 모델',
-  brand_film: '브랜드 영상'
+  brand_film: '브랜드 영상',
+  bc_second_one_month: '2차 활용 (1개월)',
+  bc_second_three_month: '2차 활용 (3개월)',
+  bc_general: '기타',
 }
 
 // Helper function to get platform color classes
