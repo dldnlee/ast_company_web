@@ -40,26 +40,8 @@ interface ProposalData {
   total_amount: number;
   currency: string;
   status: string;
+  show_total_amount: boolean;
 }
-
-// Platform and category configurations
-const platformConfig = {
-  youtube: {
-    label: 'YouTube',
-    color: 'red',
-    categories: ['community', 'exposure_ppl', 'functional_ppl', 'branded', 'shorts', 'fixed_comment']
-  },
-  instagram: {
-    label: 'Instagram',
-    color: 'pink',
-    categories: ['picture', 'reels', 'story']
-  },
-  broadcast: {
-    label: 'Broadcast',
-    color: 'purple',
-    categories: ['broadcast', 'radio', 'shown_radio', 'homeshopping', 'live_commerce', 'youtube', 'offline_convert', 'popup_event', 'brand_model', 'voice_model', 'brand_film']
-  }
-} as const
 
 const platformLabels: { [key: string]: string } = {
   youtube: '유튜브',
@@ -67,18 +49,24 @@ const platformLabels: { [key: string]: string } = {
   broadcast: '방송'
 }
 
-const categoryLabels: { [key: string]: string } = {
+export const categoryLabels: { [key: string]: string } = {
   // YouTube
   community: '커뮤니티',
   exposure_ppl: '단순노출PPL',
-  functional_ppl: 'PPL',
-  branded: 'BDC',
+  functional_ppl: '기능성 PPL',
+  branded: '브랜드형',
   shorts: '숏폼',
   fixed_comment: '고정 댓글',
+  yt_second_one_month: '2차 활용 (1개월)',
+  yt_second_three_month: '2차 활용 (3개월)',
+  yt_general: '기타',
   // Instagram
   picture: '피드 포스트',
   reels: '릴스',
   story: '스토리',
+  insta_second_one_month: '2차 활용 (1개월)',
+  insta_second_three_month: '2차 활용 (3개월)',
+  insta_general: '기타',
   // Broadcast
   broadcast: 'TV 방송',
   radio: '라디오',
@@ -90,7 +78,10 @@ const categoryLabels: { [key: string]: string } = {
   popup_event: '팝업 이벤트',
   brand_model: '브랜드 모델',
   voice_model: '음성 모델',
-  brand_film: '브랜드 영상'
+  brand_film: '브랜드 영상',
+  bc_second_one_month: '2차 활용 (1개월)',
+  bc_second_three_month: '2차 활용 (3개월)',
+  bc_general: '기타',
 }
 
 // Helper function to get platform color classes
@@ -259,7 +250,7 @@ export default function ProposalPage() {
 
         const { data: proposals, error } = await supabase
           .from('proposals')
-          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status')
+          .select('id, author, receiver, created_at, expire_at, total_amount, currency, status, show_total_amount')
           .eq('id', slug);
 
         console.log('Query response:', { proposals, error })
@@ -364,7 +355,7 @@ export default function ProposalPage() {
 
               {/* Left side - Profile Image */}
               <div className="flex-1 flex items-center justify-center">
-                <div className="h-[600px] rounded-l-2xl overflow-hidden shadow-lg">
+                <div className="h-150 rounded-l-2xl overflow-hidden shadow-lg">
                   {selectedInfluencer.profile_image ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${selectedInfluencer.profile_image}`}
@@ -380,7 +371,7 @@ export default function ProposalPage() {
               </div>
 
               {/* Right side - Content */}
-              <div className="flex-1 p-8 flex flex-col justify-center overflow-auto">
+              <div className="flex-1 p-8 flex h-150 flex-col justify-start overflow-auto">
                 <div className="mb-6">
                   <h2 className="text-4xl font-bold text-white mb-2">{selectedInfluencer.kr_name}</h2>
                   {selectedInfluencer.en_name && (
@@ -437,35 +428,40 @@ export default function ProposalPage() {
                         {/* Item Details */}
                         <div className="space-y-2">
                           {items.map((item, idx) => (
-                            <div key={idx} className="flex justify-between items-center text-sm">
-                              <span className="text-gray-300">{getCategoryLabel(item.category)} ({item.count}개)</span>
-                              <span className="text-gray-400">₩{item.unit_price.toLocaleString()}</span>
+                            <div  key={idx}>
+                              <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-300">{getCategoryLabel(item.category)} ({item.count}개)</span>
+                                <span className="text-gray-400">₩{item.unit_price.toLocaleString()}</span>
+                              </div>
+                              {item.memo && <div className="mt-3 border-b pb-2 border-gray-700">
+                                <p className="text-gray-300 text-sm whitespace-pre-line">{item.memo}</p>
+                              </div>}
                             </div>
                           ))}
                         </div>
 
                         {/* Memo if exists */}
-                        {items.some(item => item.memo) && (
+                        {/* {items.some(item => item.memo) && (
                           <div className="mt-3 pt-3 border-t border-gray-700">
                             {items.filter(item => item.memo).map((item, idx) => (
-                              <p key={idx} className="text-gray-300 text-sm">{item.memo}</p>
+                              <p key={idx} className="text-gray-300 text-sm whitespace-pre-line">{item.memo}</p>
                             ))}
                           </div>
-                        )}
+                        )} */}
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Stats Cards */}
-                <div className="mb-6">
+                {proposalData.show_total_amount && (<div className="mb-6">
                   <div className="bg-white p-4 text-center">
                   <p className="text-sm text-gray-600">총 제안 가격</p>
                     <p className="text-2xl font-bold text-black mb-1">
                       ₩{selectedInfluencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
                     </p>
                   </div>
-                </div>
+                </div>)}
               </div>
             </div>
           </motion.div>
@@ -545,12 +541,12 @@ export default function ProposalPage() {
                       {/* Content overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-2 text-white">
                         <div className="flex items-center justify-between">
-                          <h3 className="font-semibold text-lg leading-tight">{influencer.kr_name}</h3>
+                          <h3 className="font-semibold text-sm leading-tight truncate">{influencer.kr_name}</h3>
                         </div>
                         <div className="flex items-center justify-between">
-                          <p className="text-sm font-semibold text-white">
+                          {proposalData.show_total_amount && (<p className="text-xs font-semibold text-white">
                             ₩{influencer.proposal_items.reduce((total, item) => total + item.total_price, 0).toLocaleString()}
-                          </p>
+                          </p>)}
                           <div className="flex gap-1">
                             {influencer.proposal_items.length > 2 && (
                               <span className="bg-gray-500 text-white px-1 py-0.5 rounded text-xs">
@@ -570,7 +566,7 @@ export default function ProposalPage() {
               </p>
             )}
 
-            {influencers.length > 0 && (
+            {influencers.length > 0 && proposalData.show_total_amount && (
               <div className="mt-6 pt-6 border-t border-gray-200">
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold text-white">총 예상 비용:</span>
