@@ -354,7 +354,7 @@ export default function ProposalPage() {
 
               {/* Left side - Profile Image */}
               <div className="flex-1 flex items-center justify-center">
-                <div className="h-[600px] rounded-l-2xl overflow-hidden shadow-lg">
+                <div className="h-150 rounded-l-2xl overflow-hidden shadow-lg">
                   {selectedInfluencer.profile_image ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${selectedInfluencer.profile_image}`}
@@ -370,7 +370,7 @@ export default function ProposalPage() {
               </div>
 
               {/* Right side - Content */}
-              <div className="flex-1 p-8 flex flex-col justify-center overflow-auto">
+              <div className="flex-1 p-8 flex h-150 flex-col justify-center overflow-auto">
                 <div className="mb-6">
                   <h2 className="text-4xl font-bold text-white mb-2">{selectedInfluencer.kr_name}</h2>
                   {selectedInfluencer.en_name && (
@@ -438,7 +438,7 @@ export default function ProposalPage() {
                         {items.some(item => item.memo) && (
                           <div className="mt-3 pt-3 border-t border-gray-700">
                             {items.filter(item => item.memo).map((item, idx) => (
-                              <p key={idx} className="text-gray-300 text-sm">{item.memo}</p>
+                              <p key={idx} className="text-gray-300 text-sm whitespace-pre-line">{item.memo}</p>
                             ))}
                           </div>
                         )}
