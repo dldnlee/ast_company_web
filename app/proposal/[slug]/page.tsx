@@ -370,7 +370,7 @@ export default function ProposalPage() {
               </div>
 
               {/* Right side - Content */}
-              <div className="flex-1 p-8 flex h-150 flex-col justify-center overflow-auto">
+              <div className="flex-1 p-8 flex h-150 flex-col justify-start overflow-auto">
                 <div className="mb-6">
                   <h2 className="text-4xl font-bold text-white mb-2">{selectedInfluencer.kr_name}</h2>
                   {selectedInfluencer.en_name && (
@@ -427,21 +427,26 @@ export default function ProposalPage() {
                         {/* Item Details */}
                         <div className="space-y-2">
                           {items.map((item, idx) => (
-                            <div key={idx} className="flex justify-between items-center text-sm">
-                              <span className="text-gray-300">{getCategoryLabel(item.category)} ({item.count}개)</span>
-                              <span className="text-gray-400">₩{item.unit_price.toLocaleString()}</span>
+                            <div  key={idx}>
+                              <div className="flex justify-between items-center text-sm">
+                                <span className="text-gray-300">{getCategoryLabel(item.category)} ({item.count}개)</span>
+                                <span className="text-gray-400">₩{item.unit_price.toLocaleString()}</span>
+                              </div>
+                              {item.memo && <div className="mt-3 border-b pb-2 border-gray-700">
+                                <p className="text-gray-300 text-sm whitespace-pre-line">{item.memo}</p>
+                              </div>}
                             </div>
                           ))}
                         </div>
 
                         {/* Memo if exists */}
-                        {items.some(item => item.memo) && (
+                        {/* {items.some(item => item.memo) && (
                           <div className="mt-3 pt-3 border-t border-gray-700">
                             {items.filter(item => item.memo).map((item, idx) => (
                               <p key={idx} className="text-gray-300 text-sm whitespace-pre-line">{item.memo}</p>
                             ))}
                           </div>
-                        )}
+                        )} */}
                       </div>
                     ))}
                   </div>
@@ -535,7 +540,7 @@ export default function ProposalPage() {
                       {/* Content overlay */}
                       <div className="absolute bottom-0 left-0 right-0 p-2 text-white">
                         <div className="flex items-center justify-between">
-                          <h3 className="font-semibold text-lg leading-tight">{influencer.kr_name}</h3>
+                          <h3 className="font-semibold text-lg leading-tight truncate">{influencer.kr_name}</h3>
                         </div>
                         <div className="flex items-center justify-between">
                           <p className="text-sm font-semibold text-white">
