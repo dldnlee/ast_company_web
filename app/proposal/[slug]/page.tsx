@@ -332,30 +332,32 @@ export default function ProposalPage() {
 
       {/* Modal */}
       {isModalOpen && selectedInfluencer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-md p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="bg-white/10 backdrop-blur-xl rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-white/20 shadow-2xl"
-            style={{
-              backgroundImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
-            }}
+        <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-md overflow-y-auto md:overflow-hidden">
+          <button
+            onClick={closeModal}
+            aria-label="Close modal"
+            className="fixed top-3 right-3 sm:top-4 sm:right-4 z-[60] w-11 h-11 rounded-full bg-black/70 backdrop-blur border border-white/40 shadow-xl ring-2 ring-white/30 flex items-center justify-center text-white hover:bg-black/80 hover:ring-white/40 transition"
           >
-            <div className="relative flex h-full">
-              {/* Close button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-4 right-4 z-10 w-8 h-8 bg-white/20 bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-70 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div className="min-h-full flex items-start justify-center p-3 sm:p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="bg-white/10 backdrop-blur-xl rounded-2xl max-w-4xl w-full overflow-hidden border border-white/20 shadow-2xl my-10 md:my-0 md:h-[90svh]"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
+              }}
+            >
+              <div className="relative flex flex-col md:flex-row md:h-full md:min-h-0">
 
               {/* Left side - Profile Image */}
-              <div className="flex-1 flex items-center justify-center">
-                <div className="h-150 rounded-l-2xl overflow-hidden shadow-lg">
+              <div className="flex-none md:flex-1 w-full flex items-center justify-center md:items-stretch md:justify-stretch p-3 sm:p-4 md:p-0">
+                <div className="w-full max-w-[360px] aspect-[3/4] md:max-w-none md:w-full md:h-full md:aspect-auto rounded-2xl md:rounded-l-2xl md:rounded-r-none overflow-hidden shadow-lg">
                   {selectedInfluencer.profile_image ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${selectedInfluencer.profile_image}`}
@@ -371,11 +373,11 @@ export default function ProposalPage() {
               </div>
 
               {/* Right side - Content */}
-              <div className="flex-1 p-8 flex h-150 flex-col justify-start overflow-auto">
+              <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-start md:min-h-0 md:overflow-y-auto scrollbar-hidden">
                 <div className="mb-6">
-                  <h2 className="text-4xl font-bold text-white mb-2">{selectedInfluencer.kr_name}</h2>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">{selectedInfluencer.kr_name}</h2>
                   {selectedInfluencer.en_name && (
-                    <p className="text-xl text-white mb-4">{selectedInfluencer.en_name}</p>
+                    <p className="text-base sm:text-xl text-white mb-4">{selectedInfluencer.en_name}</p>
                   )}
                   {/* Keywords */}
                   {selectedInfluencer.keywords && selectedInfluencer.keywords.length > 0 && (
@@ -403,7 +405,7 @@ export default function ProposalPage() {
                   <h3 className="text-lg font-semibold text-white mb-3">제안 항목</h3>
                   <div className="space-y-4">
                     {Array.from(groupByPlatform(selectedInfluencer.proposal_items)).map(([platform, items]) => (
-                      <div key={platform} className="bg-white/20 p-4">
+                      <div key={platform} className="bg-white/20 p-3 sm:p-4">
                         {/* Platform Header */}
                         <div className="flex justify-between items-center mb-3">
                           <span className={`${getPlatformColorClasses(platform)} px-3 py-1.5 text-sm font-semibold`}>
@@ -464,7 +466,8 @@ export default function ProposalPage() {
                 </div>)}
               </div>
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       )}
 
@@ -472,18 +475,18 @@ export default function ProposalPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="min-h-screen py-8 flex items-center justify-center"
+        className="min-h-screen py-4 sm:py-8 flex items-start sm:items-center justify-center"
       >
       <div
-        className="max-w-4xl mx-auto px-4 text-white bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-2xl"
+        className="w-full max-w-4xl mx-auto px-3 sm:px-4 text-white bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-2xl"
         style={{
           backgroundImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
         }}
       >
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           {/* Expired Banner */}
           {isExpired && (
-            <div className="mb-6 bg-red-500/20 border border-red-500 rounded-lg p-4">
+            <div className="mb-6 bg-red-500/20 border border-red-500 rounded-lg p-3 sm:p-4">
               <div className="flex items-center gap-3">
                 <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
@@ -496,11 +499,11 @@ export default function ProposalPage() {
             </div>
           )}
           <div className="border-b border-gray-200 pb-6 mb-6">
-            <div className="flex flex-wrap gap-4 text-xl text-white">
-              <span><strong>작성자 :</strong> {proposalData.author}</span>
-              <span><strong>수신자 :</strong> {proposalData.receiver}</span>
-              <span className={isExpired ? 'text-red-300' : ''}>
-                <strong>만료일 :</strong> {new Date(proposalData.expire_at).toLocaleDateString('ko-KR')}
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-4 text-base sm:text-xl text-white">
+              <span className="break-words"><strong className="whitespace-nowrap">작성자 :</strong> {proposalData.author}</span>
+              <span className="break-words"><strong className="whitespace-nowrap">수신자 :</strong> {proposalData.receiver}</span>
+              <span className={`break-words ${isExpired ? 'text-red-300' : ''}`}>
+                <strong className="whitespace-nowrap">만료일 :</strong> {new Date(proposalData.expire_at).toLocaleDateString('ko-KR')}
                 {isExpired && <span className="ml-2 text-red-400 font-semibold">(만료됨)</span>}
               </span>
             </div>
@@ -512,7 +515,7 @@ export default function ProposalPage() {
             </h2>
 
             {influencers.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4">
                 {influencers.map((influencer) => (
                   <motion.div
                     key={influencer.id}
@@ -522,7 +525,7 @@ export default function ProposalPage() {
                     onClick={() => openModal(influencer)}
                     className="relative bg-linear-to-b from-gray-900 to-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
                   >
-                    <div className="aspect-3/4 relative">
+                    <div className="aspect-[3/4] relative">
                       {influencer.profile_image ? (
                         <img
                           src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/partner-influencers/profile-images/${influencer.profile_image}`}
